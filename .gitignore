@@ -6,7 +6,6 @@ target
 .gradle
 .DS_Store
 *.env
-*/**/gradle/wrapper/gradle-wrapper.jar
 
 node_modules/
 dist/
