@@ -1,0 +1,80 @@
+package nl.thijsnissen.worklog.adapters.jira.client.http
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import nl.thijsnissen.worklog.TestData.Companion.randomLongs
+import nl.thijsnissen.worklog.TestData.Companion.randomStrings
+import nl.thijsnissen.worklog.adapters.jira.client.http.dto.BulkFetchRequest
+import nl.thijsnissen.worklog.adapters.jira.client.http.dto.BulkFetchResponse
+import nl.thijsnissen.worklog.assertSameElements
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
+import org.springframework.boot.test.autoconfigure.json.JsonTest
+import org.springframework.test.context.TestConstructor
+
+@JsonTest
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+class JsonParsingTest(val objectMapper: ObjectMapper) {
+    @Test
+    fun encodeBulkFetchRequest() {
+        val request = BulkFetchRequest(issueIdsOrKeys = randomStrings())
+
+        val json =
+            """
+                {
+                  "issueIdsOrKeys": [
+                    ${request.issueIdsOrKeys.joinToString { "\"$it\"" }}
+                  ],
+                  "fields": [
+                    ""
+                  ]
+                }
+            """
+                .trimIndent()
+
+        JSONAssert.assertEquals(
+            objectMapper.writeValueAsString(request),
+            json,
+            JSONCompareMode.LENIENT,
+        )
+    }
+
+    @Test
+    fun decodeBulkFetchResponse() {
+        val issueKeys = randomStrings()
+        val issueIds = randomLongs(size = issueKeys.size)
+
+        val issues =
+            issueKeys.zip(issueIds).joinToString { (key, id) ->
+                """
+                    {
+                      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                      "id": "$id",
+                      "self": "https://atlassian.net/rest/api/3/issue/bulkfetch/$id",
+                      "key": "$key"
+                    }
+                """
+                    .trimIndent()
+            }
+
+        val response =
+            """
+                {
+                  "expand": "names,schema",
+                  "issues": [
+                    $issues
+                  ],
+                  "issueErrors": []
+                }
+            """
+                .trimIndent()
+
+        objectMapper.readValue<BulkFetchResponse>(response).let {
+            assertSameElements(issueIds, it.issues.map { it.id })
+            assertSameElements(issueKeys, it.issues.map { it.key })
+            assertEquals(issueKeys.size, it.issues.size)
+        }
+    }
+}
