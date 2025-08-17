@@ -6,6 +6,7 @@ target
 .gradle
 .DS_Store
 *.env
+*/**/gradle/wrapper/gradle-wrapper.jar
 
 node_modules/
 dist/
@@ -15,7 +16,6 @@ npm-debug.log*
 .prettiercache
 *.d.ts
 package-lock.json
-openapi.json
 
 */**/resources/public
 */**/resources/static
