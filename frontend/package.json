@@ -6,12 +6,10 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "copy:assets": "cpy \"dist/assets/**/*\" \"./../backend/modules/app/src/main/resources/static/assets/\"",
         "copy:public": "cpy \"dist/public/**/*\" \"./../backend/modules/app/src/main/resources/public/\"",
-        "gen:types": "openapi-typescript ./../openapi.json -o static/ts/types/api.d.ts",
-        "format": "prettier --write .",
-        "lint": "eslint --fix",
-        "check": "eslint . --max-warnings=0 && prettier --check .",
-        "build": "npm run gen:types && npx vite build && npm run copy:assets && npm run copy:public",
-        "verify": "npm run format && npm run lint"
+        "types": "openapi-typescript ./../openapi.json -o static/ts/types/api.d.ts",
+        "check": "eslint --max-warnings=0 && prettier --check .",
+        "normalize": "eslint --fix && prettier --write .",
+        "build": "npm run types && npx vite build && npm run copy:assets && npm run copy:public"
     },
     "devDependencies": {
         "@eslint/css": "^0.10.0",
