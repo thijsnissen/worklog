@@ -1,0 +1,32 @@
+name: Auto Approve/Merge PR
+
+on:
+  pull_request_target:
+    types: [opened, reopened, labeled, unlabeled, auto_merge_disabled, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-approve-merge:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      HAS_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'auto-approve-merge') }}
+      AUTO_MERGE_DISABLED_EVENT: ${{ github.event.action == 'auto_merge_disabled' }}
+    steps:
+      - name: Auto Approve
+        if: env.HAS_LABEL == 'true'
+        run: gh pr review "$PR_URL" --approve
+      - name: Enable Auto Merge
+        if: env.HAS_LABEL == 'true' && env.AUTO_MERGE_DISABLED_EVENT == 'false'
+        run: gh pr merge "$PR_URL" --auto --squash --body "$PR_TITLE"
+      - name: Disable Auto Merge
+        if: env.HAS_LABEL == 'false'
+        run: gh pr merge "$PR_URL" --disable-auto
+      - name: Remove Label
+        if: env.AUTO_MERGE_DISABLED_EVENT == 'true'
+        run: gh pr edit "$PR_URL" --remove-label "auto-approve-merge"

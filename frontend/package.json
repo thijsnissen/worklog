@@ -1,0 +1,32 @@
+{
+    "name": "worklog",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "copy:assets": "cpy \"dist/assets/**/*\" \"./../backend/modules/app/src/main/resources/static/assets/\"",
+        "copy:public": "cpy \"dist/public/**/*\" \"./../backend/modules/app/src/main/resources/public/\"",
+        "gen:types": "openapi-typescript ./../openapi.json -o static/ts/types/api.d.ts",
+        "format": "prettier --write .",
+        "lint": "eslint --fix",
+        "build": "npm run gen:types && npx vite build && npm run copy:assets && npm run copy:public",
+        "verify": "npm run format && npm run lint"
+    },
+    "devDependencies": {
+        "@eslint/css": "^0.10.0",
+        "@html-eslint/eslint-plugin": "^0.44.0",
+        "@typescript-eslint/eslint-plugin": "^8.39.0",
+        "@typescript-eslint/parser": "^8.39.0",
+        "cpy-cli": "^5.0.0",
+        "eslint": "^9.32.0",
+        "globals": "^16.3.0",
+        "openapi-typescript": "^7.8.0",
+        "prettier": "^3.6.2",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.39.1",
+        "vite": "^7.1.2"
+    },
+    "dependencies": {
+        "lucide": "^0.539.0"
+    }
+}

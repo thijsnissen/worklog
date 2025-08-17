@@ -1,0 +1,131 @@
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width initial-scale=1.0" />
+        <meta charset="UTF-8" />
+
+        <title>Worklog - Simple service for logging Toggl Track entries in Jira Tempo</title>
+
+        <link rel="icon" href="./../static/img/favicon.ico" />
+        <link rel="stylesheet" href="./../static/css/main.css" />
+    </head>
+    <body>
+        <header>
+            <i data-lucide="clock"></i>
+            <h1>Worklog</h1>
+        </header>
+
+        <main>
+            <div class="heading">
+                <div class="controls">
+                    <div class="controls-inner">
+                        <input id="startDateTimeInclusive" type="datetime-local" />
+                        <input id="endDateTimeInclusive" type="datetime-local" />
+                    </div>
+
+                    <div class="controls-inner">
+                        <button id="importInRangeButton" disabled>
+                            <i data-lucide="download" aria-label="Import"></i><span>Import</span>
+                        </button>
+                        <button id="exportByIdsButton" disabled>
+                            <i data-lucide="share" aria-label="Export"></i><span>Export</span>
+                        </button>
+                        <button id="deleteButton" class="danger-button" disabled>
+                            <i data-lucide="trash-2" aria-label="Flush"></i><span>Flush</span>
+                        </button>
+                        <button id="printButton" class="print-button">
+                            <i data-lucide="printer" aria-label="Print"></i><span>Print</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="summary" class="summary hidden">
+                    <div class="summary-item">
+                        <i data-lucide="notepad-text" aria-label="Summary"></i>
+                        Total worklogs: <span data-summary="total-worklogs">10</span>
+                    </div>
+                    <div class="summary-item">
+                        <i data-lucide="calendar-days" aria-label="Summary"></i>
+                        Total days: <span data-summary="total-days">12</span>
+                    </div>
+                    <div class="summary-item">
+                        <i data-lucide="clock" aria-label="Summary"></i>
+                        Total time: <span data-summary="total-time">800</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div id="noDataMessage" class="no-data-message hidden">
+                    <i data-lucide="logs" aria-label="No Data"></i>
+                    <h2>No worklogs, start importing!</h2>
+                </div>
+
+                <div id="worklogsTable" class="table-container hidden">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="print-hidden"><input id="toggleAll" type="checkbox" /></th>
+                                <th id="issueKey">
+                                    <div class="sort-container">
+                                        Issue Key
+                                        <i data-lucide="arrow-down-0-1" class="sort-icon" aria-label="Sort"></i>
+                                    </div>
+                                </th>
+                                <th id="description">
+                                    <div class="sort-container">
+                                        Description
+                                        <i data-lucide="arrow-down-0-1" class="sort-icon" aria-label="Sort"></i>
+                                    </div>
+                                </th>
+                                <th id="startInclusive">
+                                    <div class="sort-container">
+                                        StartInclusive
+                                        <i data-lucide="arrow-down-0-1" class="sort-icon" aria-label="Sort"></i>
+                                    </div>
+                                </th>
+                                <th id="endInclusive">
+                                    <div class="sort-container">
+                                        EndInclusive
+                                        <i data-lucide="arrow-down-0-1" class="sort-icon" aria-label="Sort"></i>
+                                    </div>
+                                </th>
+                                <th id="durationSeconds">
+                                    <div class="sort-container">
+                                        Duration
+                                        <i data-lucide="arrow-down-0-1" class="sort-icon" aria-label="Sort"></i>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <small>&copy; 2025 - Worklog</small>
+        </footer>
+
+        <div id="message" class="message hidden print-hidden"></div>
+
+        <template id="tableRow">
+            <tr>
+                <td data-cell="checkbox" class="print-hidden">
+                    <input type="checkbox" class="checkbox" value="" />
+                </td>
+                <td data-cell="issueKey"></td>
+                <td data-cell="description"></td>
+                <td data-cell="startInclusive"></td>
+                <td data-cell="endInclusive"></td>
+                <td data-cell="durationSeconds"></td>
+            </tr>
+        </template>
+
+        <template id="loader">
+            <i class="loader" data-lucide="loader-circle" aria-label="Loading"></i>
+        </template>
+
+        <script type="module" src="./../static/ts/main.ts"></script>
+    </body>
+</html>

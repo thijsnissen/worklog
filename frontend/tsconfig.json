@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "outDir": "./compiled_ts",
+        "removeComments": true,
+        "rootDir": "./",
+        "strict": true,
+        "strictNullChecks": true,
+        "target": "ESNext"
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+}

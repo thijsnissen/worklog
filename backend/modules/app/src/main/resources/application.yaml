@@ -1,0 +1,72 @@
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///worklog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  flyway:
+    url: jdbc:h2:mem:worklog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  jackson:
+    deserialization:
+      fail-on-null-for-primitives: true
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+service:
+  worklog-service-impl:
+    config:
+      delimiter: "${WORKLOG_SERVICE_IMPL_CONFIG_DELIMITER::}"
+
+adapters:
+  toggl-track-client-http:
+    config:
+      host: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_HOST:localhost}"
+      api-token: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN}"
+      time-zone: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_TIME_ZONE:Europe/Amsterdam}"
+  jira-client-http:
+    config:
+      host: "${JIRA_CLIENT_HTTP_CONFIG_HOST:localhost}"
+      user-email: "${JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL}"
+      api-key: "${JIRA_CLIENT_HTTP_CONFIG_API_KEY}"
+  tempo-client-http:
+    config:
+      host: "${TEMPO_CLIENT_HTTP_CONFIG_HOST:localhost}"
+      api-key: "${TEMPO_CLIENT_HTTP_CONFIG_API_KEY}"
+      account-id: "${TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID}"
+      max-concurrent-requests: "${TEMPO_CLIENT_HTTP_CONFIG_MAX_CONCURRENT_REQUESTS:5}"
+  worklog-repository-h2:
+    config:
+      table-name: "${WORKLOG_REPOSITORY_H2_CONFIG_TABLE_NAME:worklog.worklogs}"
+
+libs:
+  http:
+    client:
+      config:
+        timeout:
+          connection: "${LIB_HTTP_CLIENT_TIMEOUT_CONNECTION:5s}"
+          read: "${LIB_HTTP_CLIENT_TIMEOUT_READ:30s}"
+          write: "${LIB_HTTP_CLIENT_TIMEOUT_WRITE:10s}"
+          response: "${LIB_HTTP_CLIENT_TIMEOUT_RESPONSE:30s}"
+        retry:
+          attempts: "${LIB_HTTP_CLIENT_RETRY_ATTEMPTS:3}"
+          min-backoff: "${LIB_HTTP_CLIENT_RETRY_MIN_BACKOFF:500ms}"
+          max-backoff: "${LIB_HTTP_CLIENT_RETRY_MAX_BACKOFF:30s}"
+          jitter: "${LIB_HTTP_CLIENT_RETRY_JITTER:0.1}"
+
+logging:
+  level:
+    # server
+    org.springframework.web.reactive: DEBUG
+    org.springframework.web.server: DEBUG
+    reactor.netty.http.server: DEBUG
+
+    # client
+    reactor.netty.http.client.HttpClient: DEBUG
+    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
