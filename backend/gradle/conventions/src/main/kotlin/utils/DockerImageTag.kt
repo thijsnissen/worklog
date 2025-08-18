@@ -2,8 +2,6 @@ package utils
 
 import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
-import java.time.Instant
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import org.gradle.api.provider.Property
@@ -18,18 +16,24 @@ interface DockerImageTagParameters : ValueSourceParameters {
 abstract class DockerImageTag @Inject constructor(
     private val execOperations: ExecOperations
 ) : ValueSource<String, DockerImageTagParameters> {
-    private val gitShortHash: String? by lazy {
-        "git rev-parse HEAD".exec()?.take(8)?.trim()
+    private val gitHeadCommit: String? by lazy {
+        "git rev-parse HEAD".exec()?.trim()
+    }
+
+    private val gitHeadCommitDate: String? by lazy {
+        "git show -s --format=%ci $gitHeadCommit".exec()?.trim()?.let {
+            DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss' 'Z").parse(it)
+            )
+        }
+    }
+
+    private val gitHeadCommitShortHash: String? by lazy {
+        gitHeadCommit?.take(8)
     }
 
     private val gitCurrentBranch: String? by lazy {
         "git rev-parse --abbrev-ref HEAD".exec()?.trim()
-    }
-
-    private val now: String by lazy {
-        Instant.now()
-            .atZone(ZoneId.of("Europe/Amsterdam"))
-            .format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"))
     }
 
     private fun combine(branch: String, postfix: String): String {
@@ -53,10 +57,10 @@ abstract class DockerImageTag @Inject constructor(
     }
 
     override fun obtain(): String {
-        val semverDate = "${parameters.semver.get()}-$now"
+        val semverDate = "${parameters.semver.get()}-$gitHeadCommitDate"
 
         return gitCurrentBranch?.let { branch ->
-            gitShortHash?.let { shortHash ->
+            gitHeadCommitShortHash?.let { shortHash ->
                 val tag = "$semverDate-$shortHash"
 
                 if (branch == "main" || branch == "master") tag
