@@ -53,4 +53,7 @@ export default [
             "css/no-empty-blocks": "warn",
         },
     },
+    {
+        ignores: ["node_modules/**/*", "dist/**/*"],
+    },
 ];
