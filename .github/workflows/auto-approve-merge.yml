@@ -2,7 +2,7 @@ name: Auto Approve/Merge PR
 
 on:
   pull_request_target:
-    types: [labeled, unlabeled, auto_merge_disabled]
+    types: [opened, unlabeled, auto_merge_disabled]
 
 permissions:
   pull-requests: write
@@ -42,6 +42,7 @@ jobs:
         run: gh pr edit "$PR_URL" --remove-label "auto-approve-merge"
       - name: Summary
         run: |
-          echo "Running Auto Approve/Merge PR for action: '$ACTION' on '$PR_TITLE'"
+          echo "PR_TITLE: $PR_TITLE"
+          echo "ACTION: $ACTION"
           echo "HAS_LABEL: $HAS_LABEL"
           echo "IS_APPROVED: $IS_APPROVED"
