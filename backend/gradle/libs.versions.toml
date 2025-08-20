@@ -17,7 +17,7 @@ reactor-test = "3.7.9"
 slf4j = "2.0.17"
 spring-boot = "4.0.0-M1"
 springdoc-openapi-plugin = "1.9.0"
-springdoc-openapi-webflux = "2.8.9"
+springdoc-openapi-webflux = "2.8.10"
 swagger = "2.2.36"
 
 [libraries]
