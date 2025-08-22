@@ -1,9 +1,9 @@
-import { Worklog } from "./aliasses.js";
-import { WorklogsTable } from "./types";
+import { Worklog } from "../types/aliasses";
+import { WorklogsTable } from "../types/types";
 
-export const API_BASE_URL = "/api";
+export const API_BASE_URL = "/api/v1";
 
-export const apiRequestUrls: Readonly<Record<string, { path: string; method: string }>> = {
+export const API_REQUEST_URLS: Readonly<Record<string, { path: string; method: string }>> = {
     getAll: {
         path: "/worklogs",
         method: "GET",

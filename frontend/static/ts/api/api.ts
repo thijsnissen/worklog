@@ -10,11 +10,11 @@ import {
     ImportInRangeStartInclusive,
     Worklog,
 } from "../types/aliasses.js";
-import { API_BASE_URL, apiRequestUrls } from "../types/constants.js";
+import { API_BASE_URL, API_REQUEST_URLS } from "../constants/constants";
 import { ApiRequestOptions } from "../types/types.js";
 
 export async function getAll(): Promise<Worklog[]> {
-    const result: GetAllResponse = await apiRequest(`${API_BASE_URL}${apiRequestUrls["getAll"].path}`);
+    const result: GetAllResponse = await apiRequest(`${API_BASE_URL}${API_REQUEST_URLS["getAll"].path}`);
 
     return result.worklogs;
 }
@@ -32,9 +32,9 @@ export async function importInRange(
 
 export async function exportByIds(ids: string[]): Promise<number> {
     const request: ExportByIdsRequest = { ids: ids };
-    const url: string = `${API_BASE_URL}${apiRequestUrls["exportByIds"].path}`;
+    const url: string = `${API_BASE_URL}${API_REQUEST_URLS["exportByIds"].path}`;
     const options: ApiRequestOptions = {
-        method: apiRequestUrls["exportByIds"].method,
+        method: API_REQUEST_URLS["exportByIds"].method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(request),
     };
@@ -45,8 +45,8 @@ export async function exportByIds(ids: string[]): Promise<number> {
 
 export async function deleteByIds(ids: string[]): Promise<number> {
     const request: DeleteByIdsRequest = { ids: ids };
-    const response: DeleteByIdsResponse = await apiRequest(`${API_BASE_URL}${apiRequestUrls["deleteByIds"].path}`, {
-        method: apiRequestUrls["deleteByIds"].method,
+    const response: DeleteByIdsResponse = await apiRequest(`${API_BASE_URL}${API_REQUEST_URLS["deleteByIds"].path}`, {
+        method: API_REQUEST_URLS["deleteByIds"].method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(request),
     });
@@ -55,9 +55,9 @@ export async function deleteByIds(ids: string[]): Promise<number> {
 }
 
 export async function flush(): Promise<void> {
-    const url: string = `${API_BASE_URL}${apiRequestUrls["flush"].path}`;
+    const url: string = `${API_BASE_URL}${API_REQUEST_URLS["flush"].path}`;
     const options: ApiRequestOptions = {
-        method: apiRequestUrls["flush"].method,
+        method: API_REQUEST_URLS["flush"].method,
     };
 
     await apiRequest(url, options);

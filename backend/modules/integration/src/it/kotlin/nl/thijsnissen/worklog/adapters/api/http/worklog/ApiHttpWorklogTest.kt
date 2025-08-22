@@ -49,7 +49,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .get()
-            .uri("/api/worklogs")
+            .uri("/api/v1/worklogs")
             .exchange()
             .expectStatus()
             .isOk
@@ -63,7 +63,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .get()
-            .uri("/api/worklogs")
+            .uri("/api/v1/worklogs")
             .exchange()
             .expectStatus()
             .is5xxServerError
@@ -84,7 +84,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .isOk
@@ -101,7 +101,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .isOk
@@ -118,7 +118,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .isBadRequest
@@ -136,7 +136,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .isBadRequest
@@ -151,7 +151,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
     fun postWorklogsImportInRangeNoDateTimeRangeError() {
         client
             .post()
-            .uri("/api/worklogs")
+            .uri("/api/v1/worklogs")
             .exchange()
             .expectStatus()
             .isBadRequest
@@ -172,7 +172,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .isBadRequest
@@ -192,7 +192,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
+            .uri("/api/v1/worklogs?startInclusive=${dateTime}&endInclusive=${dateTime}")
             .exchange()
             .expectStatus()
             .is5xxServerError
@@ -211,7 +211,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/export")
+            .uri("/api/v1/worklogs/export")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -230,7 +230,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/export")
+            .uri("/api/v1/worklogs/export")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -255,7 +255,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/export")
+            .uri("/api/v1/worklogs/export")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -274,7 +274,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/export")
+            .uri("/api/v1/worklogs/export")
             .bodyValue(ExportByIdsRequest(randomUuids()))
             .exchange()
             .expectStatus()
@@ -294,7 +294,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/delete")
+            .uri("/api/v1/worklogs/delete")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -313,7 +313,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/delete")
+            .uri("/api/v1/worklogs/delete")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -338,7 +338,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/delete")
+            .uri("/api/v1/worklogs/delete")
             .bodyValue(request)
             .exchange()
             .expectStatus()
@@ -357,7 +357,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .post()
-            .uri("/api/worklogs/delete")
+            .uri("/api/v1/worklogs/delete")
             .bodyValue(DeleteByIdsRequest(randomUuids()))
             .exchange()
             .expectStatus()
@@ -373,7 +373,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
     fun deleteWorklogsFlushSuccess() {
         service.set(WorklogResult.Success)
 
-        client.delete().uri("/api/worklogs").exchange().expectStatus().isNoContent
+        client.delete().uri("/api/v1/worklogs").exchange().expectStatus().isNoContent
     }
 
     @Test
@@ -382,7 +382,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
 
         client
             .delete()
-            .uri("/api/worklogs")
+            .uri("/api/v1/worklogs")
             .exchange()
             .expectStatus()
             .is5xxServerError

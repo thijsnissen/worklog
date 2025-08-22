@@ -24,7 +24,7 @@ import {
     WORKLOGS_TABLE_BODY_ID,
     WORKLOGS_TABLE_ID,
     WORKLOGS_TABLE_ROW_ID,
-} from "../types/constants.js";
+} from "../constants/constants";
 import { StateHandler, WorklogsTable } from "../types/types.js";
 
 const { getState, setState }: StateHandler<WorklogsTable> = stateHandler(DEFAULT_WORKLOGS_TABLE);
@@ -53,17 +53,15 @@ export async function importInRangeButton(): Promise<void> {
 
         const result = await importInRange(startInclusive, endInclusive);
 
-        if (result === 0) {
-            showError("No worklogs found for the given date/time range.");
-        } else {
+        if (result > 0) {
             setState({ data: await getAll() });
 
             renderTable();
             updateSummary();
             updateButtons();
-
-            showSuccess(`Successfully imported ${result} worklog(s).`);
         }
+
+        showSuccess(`Successfully imported ${result} worklog(s).`);
     } catch (e) {
         showError(e instanceof Error ? e.message : "Unexpected error.");
     } finally {
@@ -101,15 +99,7 @@ export async function deleteButton(): Promise<void> {
 
         const ids = getCheckedIds();
 
-        if (ids.length === 0) {
-            await doFlush();
-        } else {
-            await doDeleteByIds(ids);
-        }
-
-        renderTable();
-        updateButtons();
-        updateSummary();
+        return ids.length === 0 ? await doFlush() : await doDeleteByIds(ids);
     } catch (e) {
         showError(e instanceof Error ? e.message : "Unexpected error.");
     } finally {
@@ -127,6 +117,10 @@ async function doFlush(): Promise<void> {
     setState({ data: await getAll() });
 
     showSuccess(`Successfully deleted all worklogs.`);
+
+    renderTable();
+    updateButtons();
+    updateSummary();
 }
 
 async function doDeleteByIds(ids: string[]): Promise<void> {
@@ -139,6 +133,10 @@ async function doDeleteByIds(ids: string[]): Promise<void> {
     setState({ data: await getAll() });
 
     showSuccess(`Successfully deleted ${result} worklog(s).`);
+
+    renderTable();
+    updateButtons();
+    updateSummary();
 }
 
 export function printButton(): void {
@@ -147,6 +145,7 @@ export function printButton(): void {
 
 export function renderTable(): void {
     sortTable();
+    toggleAllCheckboxes(false);
 
     const state = getState();
 
@@ -234,11 +233,29 @@ export function sortTable(): void {
 }
 
 export function toggleAllCheckboxes(checked: boolean): void {
+    const toggleAll = document.getElementById("toggleAll") as HTMLInputElement;
+    if (toggleAll) toggleAll.checked = checked;
+
     document.querySelectorAll<HTMLInputElement>(".checkbox").forEach((cb: HTMLInputElement) => {
         cb.checked = checked;
     });
 
     updateButtons();
+}
+
+export function updateSortKey(key: keyof Worklog): void {
+    const tableState = getState();
+    const direction = tableState.direction === "asc" ? "desc" : "asc";
+
+    setState({ sort: key, direction: tableState.sort === key ? direction : "asc" });
+
+    updateSortIcons();
+}
+
+export function updateButtons(): void {
+    updateImportInRangeButton();
+    updateExportByIdsButton();
+    updateDeleteButton();
 }
 
 function updateImportInRangeButton(): void {
@@ -312,19 +329,4 @@ function updateSortIcons(): void {
     icon?.setAttribute("data-lucide", type);
 
     generateIcons();
-}
-
-export function updateSortKey(key: keyof Worklog): void {
-    const tableState = getState();
-    const direction = tableState.direction === "asc" ? "desc" : "asc";
-
-    setState({ sort: key, direction: tableState.sort === key ? direction : "asc" });
-
-    updateSortIcons();
-}
-
-export function updateButtons(): void {
-    updateImportInRangeButton();
-    updateExportByIdsButton();
-    updateDeleteButton();
 }

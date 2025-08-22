@@ -79,7 +79,7 @@ class TogglTrackClientHttpTest(
                     it.getHeader("Authorization") == Credentials.basic(apiToken, "api_token")
 
                 val path =
-                    "/?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
+                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
 
                 when (it.method) {
                     "GET" if isAuthorized && it.path == path ->

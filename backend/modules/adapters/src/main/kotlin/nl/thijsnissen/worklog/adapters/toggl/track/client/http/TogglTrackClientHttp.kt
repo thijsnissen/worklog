@@ -20,11 +20,13 @@ class TogglTrackClientHttp(val config: TogglTrackClientHttpConfig, val client: W
         client
             .get()
             .uri(
-                "${config.host}?start_date=${
+                config.host.resolve(
+                    "me/time_entries?start_date=${
                     startInclusive.toRFC3339(config.timeZone)
                 }&end_date=${
                     endExclusive.toRFC3339(config.timeZone)
                 }"
+                )
             )
             .headers { it.setBasicAuth(config.apiToken, "api_token") }
             .retrieve()

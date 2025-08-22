@@ -9,6 +9,6 @@ dependencies {
 }
 
 openApi {
-    apiDocsUrl.set("http://localhost:8080/api-docs")
+    apiDocsUrl.set("http://localhost:8080/api/v1/docs")
     outputDir.set(file("./../../../"))
 }

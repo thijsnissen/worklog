@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.server.coRouter
 
 class Endpoints(val handler: Handler) {
     fun endpoints() = coRouter {
-        "api"
+        "api/v1"
             .nest {
                 GET("/worklogs", handler::getAll)
 
@@ -42,7 +42,6 @@ class Endpoints(val handler: Handler) {
             listOf(
                 response<HttpError>(HttpStatus.NOT_FOUND, "Not Found"),
                 response<HttpError>(HttpStatus.BAD_REQUEST, "Bad Request"),
-                response<HttpError>(HttpStatus.CONFLICT, "Conflict"),
                 response<HttpError>(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"),
             )
 
@@ -82,6 +81,14 @@ class Endpoints(val handler: Handler) {
                                         ),
                                     ),
                             ),
+                        HttpMethod.DELETE to
+                            operation<Any>(
+                                operationId = "flush",
+                                summary = "Flush all worklogs",
+                                tag = TAG,
+                                responses =
+                                    listOf(response<Any>(HttpStatus.NO_CONTENT)) + errorResponses,
+                            ),
                     ),
                 ),
                 OpenApiItem(
@@ -112,22 +119,11 @@ class Endpoints(val handler: Handler) {
                             )
                     ),
                 ),
-                OpenApiItem(
-                    "/worklogs/flush",
-                    pathItem(
-                        HttpMethod.DELETE to
-                            operation<Any>(
-                                operationId = "flush",
-                                summary = "Flush all worklogs",
-                                tag = TAG,
-                                responses =
-                                    listOf(response<Any>(HttpStatus.NO_CONTENT)) + errorResponses,
-                            )
-                    ),
-                ),
             )
 
         fun servers(): List<OpenApiServer> =
-            listOf(OpenApiServer(url = "http://localhost:8080/api", description = "Worklog server"))
+            listOf(
+                OpenApiServer(url = "http://localhost:8080/api/v1", description = "Worklog server")
+            )
     }
 }

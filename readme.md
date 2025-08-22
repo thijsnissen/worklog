@@ -26,8 +26,8 @@ TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID=""
 Run the application from the `./backend` directory through `./gradlew bootRun`.
 
 Interact with the application in one of the following ways:
-- Through the API documented at [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
-- Through Swagger UI at [http://localhost:8080/swagger-ui](http://localhost:8080/swagger-ui)
+- Through the API documented at [http://localhost:8080/api/v1/docs](http://localhost:8080/api/v1/docs)
+- Through Swagger UI at [http://localhost:8080/api/v1/swagger-ui](http://localhost:8080/api/v1/swagger-ui)
 
 Building an image can be done in one of two ways:
 - For a local image, run `./gradlew jibDockerBuild --no-configuration-cache`

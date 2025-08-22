@@ -174,10 +174,10 @@ class ApplicationTest(
         val tempoClientRequestRef: AtomicReference<Map<IssueId, List<String>>> =
             AtomicReference(emptyMap())
 
-        val baseUrl = "http://localhost:8080/api"
+        const val BASE_URL = "http://localhost:8080/api/v1"
 
         suspend fun WebClient.getWorklogsGetAllRequest(): GetAllResponse =
-            this.get().uri("$baseUrl/worklogs").retrieve().awaitBody<GetAllResponse>()
+            this.get().uri("$BASE_URL/worklogs").retrieve().awaitBody<GetAllResponse>()
 
         suspend fun WebClient.postWorklogsImportInRangeRequest(
             startInclusive: LocalDateTime,
@@ -185,7 +185,7 @@ class ApplicationTest(
         ): ImportInRangeResponse =
             this.post()
                 .uri(
-                    "$baseUrl/worklogs?startInclusive=${startInclusive.urlEncode()}&endInclusive=${endInclusive.urlEncode()}"
+                    "$BASE_URL/worklogs?startInclusive=${startInclusive.urlEncode()}&endInclusive=${endInclusive.urlEncode()}"
                 )
                 .retrieve()
                 .awaitBody<ImportInRangeResponse>()
@@ -194,7 +194,7 @@ class ApplicationTest(
             ids: List<UUID>
         ): ExportByIdsResponse =
             this.post()
-                .uri("$baseUrl/worklogs/export")
+                .uri("$BASE_URL/worklogs/export")
                 .bodyValue(ExportByIdsRequest(ids))
                 .retrieve()
                 .awaitBody<ExportByIdsResponse>()
@@ -203,13 +203,13 @@ class ApplicationTest(
             ids: List<UUID>
         ): DeleteByIdsResponse =
             this.post()
-                .uri("$baseUrl/worklogs/delete")
+                .uri("$BASE_URL/worklogs/delete")
                 .bodyValue(DeleteByIdsRequest(ids))
                 .retrieve()
                 .awaitBody<DeleteByIdsResponse>()
 
         suspend fun WebClient.deleteWorklogsFlushRequest() {
-            this.delete().uri("$baseUrl/worklogs").retrieve().awaitBodilessEntity()
+            this.delete().uri("$BASE_URL/worklogs").retrieve().awaitBodilessEntity()
         }
 
         fun MockWebServer.withDispatcher(
@@ -232,7 +232,7 @@ class ApplicationTest(
                         Credentials.basic(togglTrackClientApiToken, "api_token")
 
                 val pathTogglTrackClient =
-                    "/?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
+                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
 
                 val responseTogglTrackClient =
                     MockResponse()
@@ -255,7 +255,7 @@ class ApplicationTest(
 
                 // Tempo Client
                 val isAuthorizedTempoClient =
-                    it.getHeader("Authorization") == "Bearer ${tempoClientApiKey}"
+                    it.getHeader("Authorization") == "Bearer $tempoClientApiKey"
 
                 val issueIdTempoClient =
                     IssueId(
