@@ -11,11 +11,13 @@ import {
 } from "./service/service.js";
 import {
     DELETE_BUTTON_ID,
+    END_DATE_TIME_INCLUSIVE_ID,
     EXPORT_BY_IDS_BUTTON_ID,
     IMPORT_IN_RANGE_BUTTON_ID,
     PRINT_BUTTON_ID,
+    START_DATE_TIME_INCLUSIVE_ID,
     WORKLOGS_SORTABLE_KEYS,
-} from "./types/constants.js";
+} from "./constants/constants";
 import { Worklog } from "./types/aliasses";
 
 document.addEventListener("DOMContentLoaded", (): void => {
@@ -65,13 +67,11 @@ const handleChange = (target: HTMLInputElement) => {
         case "toggleAll":
             toggleAllCheckboxes(target.checked);
             return;
+        case START_DATE_TIME_INCLUSIVE_ID:
+        case END_DATE_TIME_INCLUSIVE_ID:
+            updateButtons();
+            return;
     }
 
-    if (
-        target.matches(".checkbox") ||
-        target.matches("#startDateTimeInclusive") ||
-        target.matches("#endDateTimeInclusive")
-    ) {
-        updateButtons();
-    }
+    if (target.matches(".checkbox")) updateButtons();
 };

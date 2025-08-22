@@ -64,7 +64,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
                     "tempoWorklogId": $tempoWorklogId,
                     "issue":
                     {
-                        "self": "https://dhlbnl.atlassian.net/rest/api/2/issue/${it.value}",
+                        "self": "https://${randomString()}.atlassian.net/rest/api/2/issue/${it.value}",
                         "id": ${it.value}
                     },
                     "timeSpentSeconds": ${randomLong()},
@@ -77,7 +77,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
                     "updatedAt": "${randomLocalDateTime()}",
                     "author":
                     {
-                        "self": "https://dhlbnl.atlassian.net/rest/api/2/user?accountId=$accountId",
+                        "self": "https://${randomString()}.atlassian.net/rest/api/2/user?accountId=$accountId",
                         "accountId": "$accountId"
                     },
                     "attributes":

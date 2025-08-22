@@ -1,7 +1,6 @@
 package nl.thijsnissen.worklog
 
 import nl.thijsnissen.http.client.HttpClientDefaultWebClientBean
-import nl.thijsnissen.http.openapi.OpenApi
 import nl.thijsnissen.http.openapi.OpenApiSpecBean
 import nl.thijsnissen.http.server.HttpServerCorsWebFilterBean
 import nl.thijsnissen.http.server.HttpServerWebExceptionHandlerBean
@@ -45,12 +44,7 @@ object OpenApiSpecLive :
     OpenApiSpecBean(
         title = "Worklog",
         version = "1.0.0",
-        servers =
-            Endpoints.servers() +
-                OpenApi.OpenApiServer(
-                    url = "http://localhost:8080",
-                    description = "Actuator Server",
-                ),
+        servers = Endpoints.servers(),
         items = Endpoints.spec(),
     )
 

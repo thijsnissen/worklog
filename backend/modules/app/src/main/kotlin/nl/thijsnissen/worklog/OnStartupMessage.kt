@@ -14,8 +14,8 @@ class OnStartupMessage : ApplicationListener<ContextRefreshedEvent> {
 
             Interact with the application in one of the following ways:
             - Through the GUI exposed at http://localhost:8080
-            - Through the API documented at http://localhost:8080/api-docs
-            - Through Swagger UI at http://localhost:8080/swagger-ui
+            - Through the API documented at http://localhost:8080/api/v1/docs
+            - Through Swagger UI at http://localhost:8080/api/v1/swagger-ui
 
             """
                 .trimIndent()

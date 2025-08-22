@@ -174,7 +174,7 @@ class ApplicationTest(
         val tempoClientRequestRef: AtomicReference<Map<IssueId, List<String>>> =
             AtomicReference(emptyMap())
 
-        val baseUrl = "http://localhost:8080/api"
+        val baseUrl = "http://localhost:8080/api/v1"
 
         suspend fun WebClient.getWorklogsGetAllRequest(): GetAllResponse =
             this.get().uri("$baseUrl/worklogs").retrieve().awaitBody<GetAllResponse>()

@@ -13,7 +13,7 @@ import {
     Trash2,
 } from "lucide";
 import { MessageType, StateHandler, TimeoutId } from "./types/types.js";
-import { MESSAGE_BOX_ID } from "./types/constants";
+import { MESSAGE_BOX_ID } from "./constants/constants";
 import { stateHandler } from "./service/stateHandler";
 
 const { getState, setState }: StateHandler<TimeoutId> = stateHandler({ timeoutId: -1 });
