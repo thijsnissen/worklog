@@ -30,7 +30,7 @@ jib {
                 architecture = "arm64"
             }
         }
-        image = "gcr.io/distroless/java21:nonroot"
+        image = "gcr.io/distroless/java21:nonroot@sha256:fb0d294a2ba6edffc3776a87dd2dce9771801a3fb0aa7319d51300239dd51aeb"
     }
     to {
         image = rootProject.name
