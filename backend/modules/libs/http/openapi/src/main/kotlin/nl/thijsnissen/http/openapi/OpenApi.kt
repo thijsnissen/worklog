@@ -47,14 +47,14 @@ object OpenApi {
 
             fun HttpMethod.toOas(): PathItem.HttpMethod =
                 when (this) {
-                    HttpMethod.GET -> PathItem.HttpMethod.GET
-                    HttpMethod.POST -> PathItem.HttpMethod.POST
-                    HttpMethod.PUT -> PathItem.HttpMethod.PUT
-                    HttpMethod.PATCH -> PathItem.HttpMethod.PATCH
-                    HttpMethod.DELETE -> PathItem.HttpMethod.DELETE
-                    HttpMethod.HEAD -> PathItem.HttpMethod.HEAD
-                    HttpMethod.OPTIONS -> PathItem.HttpMethod.OPTIONS
-                    HttpMethod.TRACE -> PathItem.HttpMethod.TRACE
+                    GET -> PathItem.HttpMethod.GET
+                    POST -> PathItem.HttpMethod.POST
+                    PUT -> PathItem.HttpMethod.PUT
+                    PATCH -> PathItem.HttpMethod.PATCH
+                    DELETE -> PathItem.HttpMethod.DELETE
+                    HEAD -> PathItem.HttpMethod.HEAD
+                    OPTIONS -> PathItem.HttpMethod.OPTIONS
+                    TRACE -> PathItem.HttpMethod.TRACE
                 }
         }
     }

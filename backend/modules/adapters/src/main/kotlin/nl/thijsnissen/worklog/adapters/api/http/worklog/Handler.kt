@@ -35,12 +35,12 @@ class Handler(val service: WorklogService, val validator: Validator) {
         request.queryParam("startInclusive").getOrNull()?.toLocalDateTime()?.let { startInclusive ->
             request.queryParam("endInclusive").getOrNull()?.toLocalDateTime()?.let { endInclusive ->
                 when (val result = service.importInRange(startInclusive, endInclusive)) {
-                    is WorklogResult.ImportInRangeSuccess ->
+                    is ImportInRangeSuccess ->
                         ServerResponse.ok()
                             .bodyValueAndAwait(ImportInRangeResponse(result.rowsAffected))
-                    is WorklogResult.NoTimeEntriesFoundError ->
+                    is NoTimeEntriesFoundError ->
                         ServerResponse.ok().bodyValueAndAwait(ImportInRangeResponse(0))
-                    is WorklogResult.InvalidDateTimeRangeError ->
+                    is InvalidDateTimeRangeError ->
                         HttpStatus.BAD_REQUEST.let {
                                 HttpError(
                                     status = it.value(),
@@ -49,7 +49,7 @@ class Handler(val service: WorklogService, val validator: Validator) {
                                 )
                             }
                             .toServerResponse()
-                    is WorklogResult.IssueKeysNotFoundError ->
+                    is IssueKeysNotFoundError ->
                         HttpStatus.BAD_REQUEST.let {
                                 HttpError(
                                     status = it.value(),
@@ -83,10 +83,10 @@ class Handler(val service: WorklogService, val validator: Validator) {
         context(validator) {
             request.awaitValidatedBody<ExportByIdsRequest>().let {
                 when (val result = service.exportByIds(it.ids)) {
-                    is WorklogResult.ExportByIdsSuccess ->
+                    is ExportByIdsSuccess ->
                         ServerResponse.ok()
                             .bodyValueAndAwait(ExportByIdsResponse(result.rowsAffected))
-                    is WorklogResult.IdsNotFoundError ->
+                    is IdsNotFoundError ->
                         HttpStatus.BAD_REQUEST.let {
                                 HttpError(
                                     status = it.value(),
@@ -112,10 +112,10 @@ class Handler(val service: WorklogService, val validator: Validator) {
         context(validator) {
             request.awaitValidatedBody<DeleteByIdsRequest>().let {
                 when (val result = service.deleteByIds(it.ids)) {
-                    is WorklogResult.DeleteByIdsSuccess ->
+                    is DeleteByIdsSuccess ->
                         ServerResponse.ok()
                             .bodyValueAndAwait(DeleteByIdsResponse(result.rowsAffected))
-                    is WorklogResult.IdsNotFoundError ->
+                    is IdsNotFoundError ->
                         HttpStatus.BAD_REQUEST.let {
                                 HttpError(
                                     status = it.value(),
@@ -139,7 +139,7 @@ class Handler(val service: WorklogService, val validator: Validator) {
 
     suspend fun flush(request: ServerRequest): ServerResponse =
         when (service.flush()) {
-            WorklogResult.Success -> ServerResponse.noContent().buildAndAwait()
+            Success -> ServerResponse.noContent().buildAndAwait()
             else -> HttpError.internalServerError.toServerResponse()
         }
 
