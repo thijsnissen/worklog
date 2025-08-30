@@ -27,6 +27,7 @@ kotlin {
             "-Wextra",
             "-verbose",
             "-Xcontext-parameters",
+            "-Xcontext-sensitive-resolution"
         )
     }
 }
