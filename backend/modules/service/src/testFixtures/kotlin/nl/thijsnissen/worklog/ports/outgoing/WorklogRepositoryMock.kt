@@ -1,6 +1,6 @@
 package nl.thijsnissen.worklog.ports.outgoing
 
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
 import nl.thijsnissen.worklog.domain.Hash
 import nl.thijsnissen.worklog.domain.Worklog

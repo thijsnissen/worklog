@@ -1,7 +1,7 @@
 package nl.thijsnissen.worklog.ports.incoming
 
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
 import nl.thijsnissen.worklog.domain.WorklogResult
 

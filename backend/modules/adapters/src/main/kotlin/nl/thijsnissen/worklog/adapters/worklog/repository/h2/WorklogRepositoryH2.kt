@@ -1,6 +1,6 @@
 package nl.thijsnissen.worklog.adapters.worklog.repository.h2
 
-import java.util.*
+import java.util.UUID
 import kotlin.collections.emptyMap
 import kotlinx.coroutines.reactor.awaitSingle
 import nl.thijsnissen.worklog.adapters.worklog.repository.h2.dto.Worklog as WorklogDto

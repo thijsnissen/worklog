@@ -3,7 +3,7 @@ package nl.thijsnissen.http.server
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.reactive.function.server.ServerResponse

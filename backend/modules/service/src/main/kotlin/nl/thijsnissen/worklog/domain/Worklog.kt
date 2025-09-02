@@ -3,7 +3,8 @@ package nl.thijsnissen.worklog.domain
 import java.security.MessageDigest
 import java.time.Instant
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Base64
+import java.util.UUID
 
 data class Worklog(
     val id: UUID,

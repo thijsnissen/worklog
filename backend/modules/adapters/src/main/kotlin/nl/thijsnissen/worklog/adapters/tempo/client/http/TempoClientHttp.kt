@@ -1,6 +1,6 @@
 package nl.thijsnissen.worklog.adapters.tempo.client.http
 
-import java.util.*
+import java.util.UUID
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope

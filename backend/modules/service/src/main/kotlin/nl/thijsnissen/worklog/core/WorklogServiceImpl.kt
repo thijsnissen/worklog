@@ -2,7 +2,7 @@ package nl.thijsnissen.worklog.core
 
 import java.time.Instant
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 import nl.thijsnissen.worklog.domain.Description
 import nl.thijsnissen.worklog.domain.IssueId
 import nl.thijsnissen.worklog.domain.IssueKey

@@ -1,6 +1,6 @@
 package nl.thijsnissen.worklog.ports.outgoing
 
-import java.util.*
+import java.util.UUID
 import nl.thijsnissen.worklog.domain.Worklog
 
 interface TempoClient {

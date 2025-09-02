@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.adapters.api.http.worklog.dto.DeleteByIdsRequest
