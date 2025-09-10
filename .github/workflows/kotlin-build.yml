@@ -13,12 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Setup Eclipse Temurin 21
-        uses: actions/setup-java@d0351b4837dd42a4a838ef25daec3bf530e20aaf
+        uses: actions/setup-java@a7ab372554b6eb1a8eb25e7d9aec1cc9f3ea1a76
         with:
           distribution: 'temurin'
           java-version: 21
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@0a4f8b4fc8388e01bfcf61f4b2587744d32ba24a
+        uses: gradle/actions/setup-gradle@76d3b998d4cef76a821dbcee71a9172ce986bb30
       - name: Build & Test
         working-directory: backend
         run: ./gradlew build
