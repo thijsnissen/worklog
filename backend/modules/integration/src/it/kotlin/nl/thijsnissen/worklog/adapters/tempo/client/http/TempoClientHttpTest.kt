@@ -1,6 +1,5 @@
 package nl.thijsnissen.worklog.adapters.tempo.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.MockWebServerBean
@@ -22,6 +21,7 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -30,7 +30,7 @@ class TempoClientHttpTest(
     val client: TempoClientHttp,
     val config: TempoClientHttpConfig,
     val server: MockWebServer,
-    val objectMapper: ObjectMapper,
+    val jsonMapper: JsonMapper,
 ) {
     @Test
     fun send() {
@@ -39,7 +39,7 @@ class TempoClientHttpTest(
         server.withDispatcher(
             issueIds = testCase.issueIds,
             apiKey = config.apiKey,
-            objectMapper = objectMapper,
+            jsonMapper = jsonMapper,
         )
 
         runTest {
@@ -54,7 +54,7 @@ class TempoClientHttpTest(
         fun MockWebServer.withDispatcher(
             issueIds: List<IssueId>,
             apiKey: String,
-            objectMapper: ObjectMapper,
+            jsonMapper: JsonMapper,
         ) =
             this.dispatcher {
                 val issueId =
@@ -73,7 +73,7 @@ class TempoClientHttpTest(
                         MockResponse()
                             .setHeader("Content-Type", "application/json")
                             .setBody(
-                                objectMapper.writeValueAsString(
+                                jsonMapper.writeValueAsString(
                                     List(issueIds.count { it == issueId }) {
                                         Response(Issue(id = issueId.value))
                                     }

@@ -1,7 +1,5 @@
 package nl.thijsnissen.worklog.adapters.jira.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import nl.thijsnissen.worklog.TestData.Companion.randomLongs
 import nl.thijsnissen.worklog.TestData.Companion.randomStrings
 import nl.thijsnissen.worklog.adapters.jira.client.http.dto.BulkFetchRequest
@@ -13,10 +11,12 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.boot.test.autoconfigure.json.JsonTest
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 
 @JsonTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-class JsonParsingTest(val objectMapper: ObjectMapper) {
+class JsonParsingTest(val jsonMapper: JsonMapper) {
     @Test
     fun encodeBulkFetchRequest() {
         val request = BulkFetchRequest(issueIdsOrKeys = randomStrings())
@@ -35,7 +35,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
                 .trimIndent()
 
         JSONAssert.assertEquals(
-            objectMapper.writeValueAsString(request),
+            jsonMapper.writeValueAsString(request),
             json,
             JSONCompareMode.LENIENT,
         )
@@ -43,7 +43,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
 
     @Test
     fun decodeBulkFetchResponse() {
-        val issueKeys = randomStrings()
+        val issueKeys = randomStrings(size = 3)
         val issueIds = randomLongs(size = issueKeys.size)
 
         val issues =
@@ -71,7 +71,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
             """
                 .trimIndent()
 
-        objectMapper.readValue<BulkFetchResponse>(response).let {
+        jsonMapper.readValue<BulkFetchResponse>(response).let {
             assertSameElements(issueIds, it.issues.map { it.id })
             assertSameElements(issueKeys, it.issues.map { it.key })
             assertEquals(issueKeys.size, it.issues.size)
