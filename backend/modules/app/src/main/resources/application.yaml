@@ -3,9 +3,6 @@ spring:
     url: r2dbc:h2:mem:///worklog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
   flyway:
     url: jdbc:h2:mem:worklog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  jackson:
-    deserialization:
-      fail-on-null-for-primitives: true
 
 server:
   port: 8080

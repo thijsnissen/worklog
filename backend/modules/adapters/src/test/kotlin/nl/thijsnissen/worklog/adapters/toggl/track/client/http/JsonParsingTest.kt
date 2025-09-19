@@ -1,7 +1,5 @@
 package nl.thijsnissen.worklog.adapters.toggl.track.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import java.time.ZoneOffset
 import nl.thijsnissen.worklog.TestData.Companion.randomBoolean
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
@@ -20,11 +18,13 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [JsonParsingTest.Companion.Beans::class])
-class JsonParsingTest(val objectMapper: ObjectMapper, val config: TogglTrackClientHttpConfig) {
+class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHttpConfig) {
     @Test
     fun decodeInRangeResponse() {
         val entries = randomTimeEntries()
@@ -56,7 +56,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper, val config: TogglTrackClie
                     .trimIndent()
             }
 
-        objectMapper.readValue<InRangeResponse>("[ $json ]").let {
+        jsonMapper.readValue<InRangeResponse>("[ $json ]").let {
             assertSameElements(entries.map { it.description.value }, it.map { it.description })
             assertSameElements(
                 entries.map { it.startInclusive },
