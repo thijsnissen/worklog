@@ -43,7 +43,7 @@ class JsonParsingTest(val jsonMapper: JsonMapper) {
 
     @Test
     fun decodeBulkFetchResponse() {
-        val issueKeys = randomStrings(size = 3)
+        val issueKeys = randomStrings()
         val issueIds = randomLongs(size = issueKeys.size)
 
         val issues =
