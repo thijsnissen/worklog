@@ -1,6 +1,5 @@
 package nl.thijsnissen.worklog.adapters.jira.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.JiraClientHttpLive
@@ -21,6 +20,7 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -29,7 +29,7 @@ class JiraClientHttpTest(
     val client: JiraClientHttp,
     val config: JiraClientHttpConfig,
     val server: MockWebServer,
-    val objectMapper: ObjectMapper,
+    val jsonMapper: JsonMapper,
 ) {
     @Test
     fun getIssueIds() {
@@ -39,7 +39,7 @@ class JiraClientHttpTest(
             userEmail = config.userEmail,
             apiKey = config.apiKey,
             response =
-                objectMapper.writeValueAsString(
+                jsonMapper.writeValueAsString(
                     BulkFetchResponse(
                         testCase.issueKeysIssueIds.map { (key, id) ->
                             Response(key.value, id.value)

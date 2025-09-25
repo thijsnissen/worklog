@@ -1,6 +1,5 @@
 package nl.thijsnissen.worklog.adapters.toggl.track.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -26,6 +25,7 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -34,7 +34,7 @@ class TogglTrackClientHttpTest(
     val client: TogglTrackClientHttp,
     val config: TogglTrackClientHttpConfig,
     val server: MockWebServer,
-    val objectMapper: ObjectMapper,
+    val jsonMapper: JsonMapper,
 ) {
     @Test
     fun getTimeEntriesInRange() {
@@ -55,7 +55,7 @@ class TogglTrackClientHttpTest(
             endInclusive = testCase.endInclusive,
             timeZone = config.timeZone,
             apiToken = config.apiToken,
-            response = objectMapper.writeValueAsString(response),
+            response = jsonMapper.writeValueAsString(response),
         )
 
         runTest {
