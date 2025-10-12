@@ -1,8 +1,7 @@
 package nl.thijsnissen.worklog.adapters.tempo.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import java.time.format.DateTimeFormatter
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
 import nl.thijsnissen.worklog.TestData.Companion.randomIssueIds
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
@@ -17,11 +16,15 @@ import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.boot.test.autoconfigure.json.JsonTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 
 @JsonTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-class JsonParsingTest(val objectMapper: ObjectMapper) {
+@Import(JsonMapperBuilderCustomizerLive::class)
+class JsonParsingTest(val jsonMapper: JsonMapper) {
     @Test
     fun encodeBulkRequest() {
         val authorAccountId = randomString()
@@ -43,7 +46,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
 
         JSONAssert.assertEquals(
             "[ $json ]",
-            objectMapper.writeValueAsString(request),
+            jsonMapper.writeValueAsString(request),
             JSONCompareMode.LENIENT,
         )
     }
@@ -91,7 +94,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper) {
                     .trimIndent()
             }
 
-        objectMapper.readValue<BulkResponse>("[ $response ]").let {
+        jsonMapper.readValue<BulkResponse>("[ $response ]").let {
             assertSameElements(issueIds.map { it.value }, it.map { it.issue.id })
             assertEquals(issueIds.size, it.size)
         }
