@@ -1,6 +1,7 @@
 package nl.thijsnissen.worklog.adapters.toggl.track.client.http
 
 import java.time.ZoneOffset
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.TestData.Companion.randomBoolean
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
@@ -11,6 +12,7 @@ import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Comp
 import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Companion.toOffsetDateTime
 import nl.thijsnissen.worklog.assertSameElements
 import nl.thijsnissen.worklog.invoke
+import nl.thijsnissen.worklog.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -74,7 +76,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHt
     companion object {
         object Beans : ApplicationContextInitializer<GenericApplicationContext> {
             override fun initialize(context: GenericApplicationContext) {
-                TogglTrackClientHttpConfigLive().initialize(context)
+                (TogglTrackClientHttpConfigLive + JsonMapperBuilderCustomizerLive)()
+                    .initialize(context)
             }
         }
     }

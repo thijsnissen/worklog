@@ -4,6 +4,7 @@ import nl.thijsnissen.http.server.HttpError
 import nl.thijsnissen.worklog.ApiHttpWorklogLive
 import nl.thijsnissen.worklog.HttpServerCorsWebFilterLive
 import nl.thijsnissen.worklog.HttpServerWebExceptionHandlerLive
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.TestData.Companion.randomIssueKeys
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
 import nl.thijsnissen.worklog.TestData.Companion.randomLong
@@ -405,7 +406,8 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
                         HttpServerWebExceptionHandlerLive +
                         HttpServerCorsWebFilterLive +
                         WebTestClientBean(context) +
-                        WorklogServiceMockBean)()
+                        WorklogServiceMockBean +
+                        JsonMapperBuilderCustomizerLive)()
                     .initialize(context)
         }
     }

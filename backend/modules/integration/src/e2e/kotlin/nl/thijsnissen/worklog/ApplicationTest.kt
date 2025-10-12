@@ -232,7 +232,11 @@ class ApplicationTest(
                         Credentials.basic(togglTrackClientApiToken, "api_token")
 
                 val pathTogglTrackClient =
-                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
+                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${
+                        endInclusive.toRFC3339(
+                            timeZone
+                        )
+                    }"
 
                 val responseTogglTrackClient =
                     MockResponse()
@@ -348,7 +352,10 @@ class ApplicationTest(
                         HttpServerCorsWebFilterLive +
 
                         // Test
-                        MockWebServerBean(mockWebServer))()
+                        MockWebServerBean(mockWebServer) +
+
+                        // Configuration
+                        JsonMapperBuilderCustomizerLive)()
                     .initialize(context)
             }
         }

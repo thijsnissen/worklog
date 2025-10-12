@@ -1,6 +1,7 @@
 package nl.thijsnissen.worklog.adapters.tempo.client.http
 
 import java.time.format.DateTimeFormatter
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
 import nl.thijsnissen.worklog.TestData.Companion.randomIssueIds
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
@@ -15,12 +16,14 @@ import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.boot.test.autoconfigure.json.JsonTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.context.TestConstructor
 import tools.jackson.databind.json.JsonMapper
 import tools.jackson.module.kotlin.readValue
 
 @JsonTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@Import(JsonMapperBuilderCustomizerLive::class)
 class JsonParsingTest(val jsonMapper: JsonMapper) {
     @Test
     fun encodeBulkRequest() {
