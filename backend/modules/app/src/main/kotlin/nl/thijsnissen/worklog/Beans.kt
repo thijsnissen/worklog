@@ -18,6 +18,8 @@ import nl.thijsnissen.worklog.core.WorklogServiceImpl
 import nl.thijsnissen.worklog.core.WorklogServiceImplConfig
 import org.springframework.beans.factory.BeanRegistrarDsl
 import org.springframework.boot.context.properties.bind.Binder
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer
+import tools.jackson.module.kotlin.kotlinModule
 
 object OnStartupMessageLive : BeanRegistrarDsl({ registerBean<OnStartupMessage>() })
 
@@ -105,3 +107,11 @@ object HttpServerCorsWebFilterLive :
         allowedOrigins = listOf("http://localhost:8080", "http://localhost:3000"),
         allowedMethods = listOf("GET", "POST", "DELETE"),
     )
+
+// Configuration
+object JsonMapperBuilderCustomizerLive :
+    BeanRegistrarDsl({
+        registerBean<JsonMapperBuilderCustomizer> {
+            JsonMapperBuilderCustomizer { builder -> builder.addModule(kotlinModule()) }
+        }
+    })

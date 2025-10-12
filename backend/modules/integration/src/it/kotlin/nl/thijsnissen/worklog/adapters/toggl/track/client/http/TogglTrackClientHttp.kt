@@ -1,11 +1,11 @@
 package nl.thijsnissen.worklog.adapters.toggl.track.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TestData
 import nl.thijsnissen.worklog.TogglTrackClientHttpConfigLive
@@ -26,6 +26,7 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -34,7 +35,7 @@ class TogglTrackClientHttpTest(
     val client: TogglTrackClientHttp,
     val config: TogglTrackClientHttpConfig,
     val server: MockWebServer,
-    val objectMapper: ObjectMapper,
+    val jsonMapper: JsonMapper,
 ) {
     @Test
     fun getTimeEntriesInRange() {
@@ -55,7 +56,7 @@ class TogglTrackClientHttpTest(
             endInclusive = testCase.endInclusive,
             timeZone = config.timeZone,
             apiToken = config.apiToken,
-            response = objectMapper.writeValueAsString(response),
+            response = jsonMapper.writeValueAsString(response),
         )
 
         runTest {
@@ -79,7 +80,11 @@ class TogglTrackClientHttpTest(
                     it.getHeader("Authorization") == Credentials.basic(apiToken, "api_token")
 
                 val path =
-                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
+                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${
+                        endInclusive.toRFC3339(
+                            timeZone
+                        )
+                    }"
 
                 when (it.method) {
                     "GET" if isAuthorized && it.path == path ->
@@ -87,6 +92,7 @@ class TogglTrackClientHttpTest(
                             .setHeader("Content-Type", "application/json")
                             .setBody(response)
                             .setResponseCode(200)
+
                     else -> MockResponse().setResponseCode(404)
                 }
             }
@@ -103,7 +109,8 @@ class TogglTrackClientHttpTest(
                 (TogglTrackClientHttpLive +
                         TogglTrackClientHttpConfigLive +
                         HttpClientLive +
-                        MockWebServerBean(mockWebServer))()
+                        MockWebServerBean(mockWebServer) +
+                        JsonMapperBuilderCustomizerLive)()
                     .initialize(context)
             }
         }

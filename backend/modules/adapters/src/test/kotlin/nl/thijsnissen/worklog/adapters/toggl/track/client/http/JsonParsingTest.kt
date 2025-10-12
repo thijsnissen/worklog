@@ -1,8 +1,7 @@
 package nl.thijsnissen.worklog.adapters.toggl.track.client.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import java.time.ZoneOffset
+import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.TestData.Companion.randomBoolean
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
@@ -13,6 +12,7 @@ import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Comp
 import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Companion.toOffsetDateTime
 import nl.thijsnissen.worklog.assertSameElements
 import nl.thijsnissen.worklog.invoke
+import nl.thijsnissen.worklog.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -20,11 +20,13 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [JsonParsingTest.Companion.Beans::class])
-class JsonParsingTest(val objectMapper: ObjectMapper, val config: TogglTrackClientHttpConfig) {
+class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHttpConfig) {
     @Test
     fun decodeInRangeResponse() {
         val entries = randomTimeEntries()
@@ -56,7 +58,7 @@ class JsonParsingTest(val objectMapper: ObjectMapper, val config: TogglTrackClie
                     .trimIndent()
             }
 
-        objectMapper.readValue<InRangeResponse>("[ $json ]").let {
+        jsonMapper.readValue<InRangeResponse>("[ $json ]").let {
             assertSameElements(entries.map { it.description.value }, it.map { it.description })
             assertSameElements(
                 entries.map { it.startInclusive },
@@ -74,7 +76,8 @@ class JsonParsingTest(val objectMapper: ObjectMapper, val config: TogglTrackClie
     companion object {
         object Beans : ApplicationContextInitializer<GenericApplicationContext> {
             override fun initialize(context: GenericApplicationContext) {
-                TogglTrackClientHttpConfigLive().initialize(context)
+                (TogglTrackClientHttpConfigLive + JsonMapperBuilderCustomizerLive)()
+                    .initialize(context)
             }
         }
     }

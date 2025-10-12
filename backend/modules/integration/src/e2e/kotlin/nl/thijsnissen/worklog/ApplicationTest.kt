@@ -1,7 +1,5 @@
 package nl.thijsnissen.worklog
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -43,6 +41,8 @@ import org.springframework.test.context.TestConstructor
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBodilessEntity
 import org.springframework.web.reactive.function.client.awaitBody
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -50,7 +50,7 @@ import org.springframework.web.reactive.function.client.awaitBody
 class ApplicationTest(
     val client: WebClient,
     val server: MockWebServer,
-    val objectMapper: ObjectMapper,
+    val jsonMapper: JsonMapper,
     val jiraClientHttpConfig: JiraClientHttpConfig,
     val tempoClientHttpConfig: TempoClientHttpConfig,
     val togglTrackClientHttpConfig: TogglTrackClientHttpConfig,
@@ -156,7 +156,7 @@ class ApplicationTest(
             }
 
         server.withDispatcher(
-            objectMapper = objectMapper,
+            jsonMapper = jsonMapper,
             togglTrackClientApiToken = togglTrackClientHttpConfig.apiToken,
             startInclusive = testCase.startInclusive,
             endInclusive = testCase.endInclusive,
@@ -213,7 +213,7 @@ class ApplicationTest(
         }
 
         fun MockWebServer.withDispatcher(
-            objectMapper: ObjectMapper,
+            jsonMapper: JsonMapper,
             togglTrackClientApiToken: String,
             startInclusive: LocalDateTime,
             endInclusive: LocalDateTime,
@@ -232,12 +232,16 @@ class ApplicationTest(
                         Credentials.basic(togglTrackClientApiToken, "api_token")
 
                 val pathTogglTrackClient =
-                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${endInclusive.toRFC3339(timeZone)}"
+                    "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${
+                        endInclusive.toRFC3339(
+                            timeZone
+                        )
+                    }"
 
                 val responseTogglTrackClient =
                     MockResponse()
                         .setHeader("Content-Type", "application/json")
-                        .setBody(objectMapper.writeValueAsString(togglTrackResponse))
+                        .setBody(jsonMapper.writeValueAsString(togglTrackResponse))
                         .setResponseCode(200)
 
                 // JiraClient
@@ -250,7 +254,7 @@ class ApplicationTest(
                 val responseJiraClient =
                     MockResponse()
                         .setHeader("Content-Type", "application/json")
-                        .setBody(objectMapper.writeValueAsString(jiraClientResponse))
+                        .setBody(jsonMapper.writeValueAsString(jiraClientResponse))
                         .setResponseCode(200)
 
                 // Tempo Client
@@ -270,7 +274,7 @@ class ApplicationTest(
                     MockResponse()
                         .setHeader("Content-Type", "application/json")
                         .setBody(
-                            objectMapper.writeValueAsString(
+                            jsonMapper.writeValueAsString(
                                 List(issueIds.count { it == issueIdTempoClient }) {
                                     TempoClientResponse(Issue(id = issueIdTempoClient.value))
                                 }
@@ -286,7 +290,7 @@ class ApplicationTest(
                         responseJiraClient
 
                     "POST" if isAuthorizedTempoClient && issueIdTempoClient in issueIds -> {
-                        val request = objectMapper.readValue<BulkRequest>(it.body.readUtf8())
+                        val request = jsonMapper.readValue<BulkRequest>(it.body.readUtf8())
 
                         tempoClientRequestRef
                             .updateAndGet {
@@ -348,7 +352,10 @@ class ApplicationTest(
                         HttpServerCorsWebFilterLive +
 
                         // Test
-                        MockWebServerBean(mockWebServer))()
+                        MockWebServerBean(mockWebServer) +
+
+                        // Configuration
+                        JsonMapperBuilderCustomizerLive)()
                     .initialize(context)
             }
         }

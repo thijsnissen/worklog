@@ -2,7 +2,7 @@
 dotenv-kotlin = "6.5.1"
 h2-database = "2.4.240"
 h2-r2dbc = "1.0.0.RELEASE"
-jackson-module-kotlin = "2.20.0"
+jackson-module-kotlin = "3.0.0"
 jib = "3.4.5"
 junit-jupiter = "6.0.0"
 kotlin = "2.2.20"
@@ -15,16 +15,16 @@ okhttp = "5.2.1"
 reactor-kotlin-extensions = "1.2.4"
 reactor-test = "3.7.11"
 slf4j = "2.0.17"
-spring-boot = "4.0.0-M2"
+spring-boot = "4.0.0-M3"
 springdoc-openapi-plugin = "1.9.0"
-springdoc-openapi-webflux = "2.8.13"
+springdoc-openapi-webflux = "3.0.0-M1"
 swagger = "2.2.38"
 
 [libraries]
 dotenv-kotlin = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv-kotlin" }
 h2-database = { module = "com.h2database:h2", version.ref = "h2-database" }
 h2-r2dbc = { module = "io.r2dbc:r2dbc-h2", version.ref = "h2-r2dbc" }
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson-module-kotlin" }
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jackson-module-kotlin" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-jupiter"}
 kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
