@@ -1,9 +1,9 @@
 package nl.thijsnissen.http.server
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException
 import kotlinx.coroutines.reactor.awaitSingleOrNull
-import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
@@ -20,7 +20,7 @@ class HttpServerWebExceptionHandler(val strategies: HandlerStrategies) :
     override fun getOrder(): Int = Ordered.HIGHEST_PRECEDENCE
 
     override suspend fun coHandle(exchange: ServerWebExchange, ex: Throwable) {
-        log.error(ex.message, ex)
+        log.error(ex) { ex.message }
 
         when (ex) {
                 is ConstraintViolationException -> validationHandler(ex.constraintViolations)
@@ -72,6 +72,6 @@ class HttpServerWebExceptionHandler(val strategies: HandlerStrategies) :
             .toServerResponse()
 
     companion object {
-        private val log = LoggerFactory.getLogger(HttpServerWebExceptionHandler::class.java)
+        private val log = KotlinLogging.logger {}
     }
 }
