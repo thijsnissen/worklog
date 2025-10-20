@@ -1,10 +1,10 @@
 package nl.thijsnissen.http.client
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.netty.channel.ChannelOption
 import io.netty.handler.timeout.ReadTimeoutHandler
 import io.netty.handler.timeout.WriteTimeoutHandler
 import java.util.concurrent.TimeUnit
-import org.slf4j.LoggerFactory
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientRequestException
@@ -42,13 +42,9 @@ class HttpClient(val config: HttpClientConfig, val builder: WebClient.Builder) {
                 .jitter(config.retry.jitter)
                 .filter { shouldRetry(it) }
                 .doBeforeRetry { s ->
-                    log.warn(
-                        "Retrying request due to {} (attempt {} of {}): {}",
-                        s.failure().cause.toString(),
-                        s.totalRetries() + 1,
-                        config.retry.attempts,
-                        s.failure().message,
-                    )
+                    log.warn {
+                        "Retrying request due to ${s.failure().cause.toString()} (attempt ${s.totalRetries() + 1} of ${config.retry.attempts}): ${s.failure().message}"
+                    }
                 }
 
         return builder
@@ -58,7 +54,7 @@ class HttpClient(val config: HttpClientConfig, val builder: WebClient.Builder) {
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(WebClient::class.java)
+        private val log = KotlinLogging.logger {}
 
         fun shouldRetry(error: Throwable): Boolean =
             when (error) {

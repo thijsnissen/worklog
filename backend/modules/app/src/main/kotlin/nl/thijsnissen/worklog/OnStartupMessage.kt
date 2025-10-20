@@ -1,12 +1,12 @@
 package nl.thijsnissen.worklog
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
 
 class OnStartupMessage : ApplicationListener<ContextRefreshedEvent> {
     override fun onApplicationEvent(event: ContextRefreshedEvent) =
-        log.info(
+        log.info {
             """
 
 
@@ -19,9 +19,9 @@ class OnStartupMessage : ApplicationListener<ContextRefreshedEvent> {
 
             """
                 .trimIndent()
-        )
+        }
 
     companion object {
-        private val log = LoggerFactory.getLogger(OnStartupMessage::class.java)
+        private val log = KotlinLogging.logger {}
     }
 }

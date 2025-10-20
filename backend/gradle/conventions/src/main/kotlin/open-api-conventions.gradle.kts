@@ -1,3 +1,5 @@
+import utils.versionCatalogUnsafe
+
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.springdoc.openapi-gradle-plugin")
