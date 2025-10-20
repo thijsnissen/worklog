@@ -1,6 +1,6 @@
 [versions]
 dotenv-kotlin = "6.5.1"
-h2-database = "2.3.232"
+h2-database = "2.4.240"
 h2-r2dbc = "1.1.0.RELEASE"
 jackson-module-kotlin = "3.0.0"
 jib = "3.4.5"
