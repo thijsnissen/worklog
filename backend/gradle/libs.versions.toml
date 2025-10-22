@@ -2,7 +2,7 @@
 dotenv-kotlin = "6.5.1"
 h2-database = "2.4.240"
 h2-r2dbc = "1.1.0.RELEASE"
-jackson-module-kotlin = "3.0.0"
+jackson-module-kotlin = "3.0.1"
 jib = "3.4.5"
 junit-jupiter = "6.0.0"
 kotlin = "2.2.20"
