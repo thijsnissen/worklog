@@ -3,7 +3,6 @@ package nl.thijsnissen.worklog.adapters.jira.client.http
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.JiraClientHttpLive
-import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TestData
 import nl.thijsnissen.worklog.adapters.jira.client.http.dto.BulkFetchResponse
@@ -77,10 +76,7 @@ class JiraClientHttpTest(
                     mockWebServer.url("/").toString(),
                 )
 
-                (JiraClientHttpLive +
-                        HttpClientLive +
-                        MockWebServerBean(mockWebServer) +
-                        JsonMapperBuilderCustomizerLive)()
+                (JiraClientHttpLive + HttpClientLive + MockWebServerBean(mockWebServer))()
                     .initialize(context)
             }
         }
