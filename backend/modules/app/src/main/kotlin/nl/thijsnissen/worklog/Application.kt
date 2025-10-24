@@ -36,9 +36,6 @@ fun main(args: Array<String>) {
             HttpClientLive(),
             HttpServerWebExceptionHandlerLive(),
             HttpServerCorsWebFilterLive(),
-
-            // Configuration
-            JsonMapperBuilderCustomizerLive(),
         )
     }
 }

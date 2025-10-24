@@ -352,10 +352,7 @@ class ApplicationTest(
                         HttpServerCorsWebFilterLive +
 
                         // Test
-                        MockWebServerBean(mockWebServer) +
-
-                        // Configuration
-                        JsonMapperBuilderCustomizerLive)()
+                        MockWebServerBean(mockWebServer))()
                     .initialize(context)
             }
         }

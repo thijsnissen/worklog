@@ -2,7 +2,6 @@ package nl.thijsnissen.worklog.adapters.tempo.client.http
 
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
-import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TempoClientHttpLive
 import nl.thijsnissen.worklog.TestData
@@ -94,10 +93,7 @@ class TempoClientHttpTest(
                     mockWebServer.url("/").toString(),
                 )
 
-                (TempoClientHttpLive +
-                        HttpClientLive +
-                        MockWebServerBean(mockWebServer) +
-                        JsonMapperBuilderCustomizerLive)()
+                (TempoClientHttpLive + HttpClientLive + MockWebServerBean(mockWebServer))()
                     .initialize(context)
             }
         }

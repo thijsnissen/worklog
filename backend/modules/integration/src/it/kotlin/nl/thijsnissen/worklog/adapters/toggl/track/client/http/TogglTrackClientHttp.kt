@@ -5,7 +5,6 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
-import nl.thijsnissen.worklog.JsonMapperBuilderCustomizerLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TestData
 import nl.thijsnissen.worklog.TogglTrackClientHttpConfigLive
@@ -109,8 +108,7 @@ class TogglTrackClientHttpTest(
                 (TogglTrackClientHttpLive +
                         TogglTrackClientHttpConfigLive +
                         HttpClientLive +
-                        MockWebServerBean(mockWebServer) +
-                        JsonMapperBuilderCustomizerLive)()
+                        MockWebServerBean(mockWebServer))()
                     .initialize(context)
             }
         }
