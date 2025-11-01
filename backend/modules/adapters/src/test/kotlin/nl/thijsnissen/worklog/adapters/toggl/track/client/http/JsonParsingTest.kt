@@ -11,7 +11,6 @@ import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Comp
 import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.Response.Companion.toOffsetDateTime
 import nl.thijsnissen.worklog.assertSameElements
 import nl.thijsnissen.worklog.invoke
-import nl.thijsnissen.worklog.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

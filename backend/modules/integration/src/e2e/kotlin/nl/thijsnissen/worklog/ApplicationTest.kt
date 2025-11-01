@@ -92,7 +92,7 @@ class ApplicationTest(
                     .rowsAffected,
             )
 
-            val deleteWorklogs = client.getWorklogsGetAllRequest().worklogs - createWorklogs
+            val deleteWorklogs = client.getWorklogsGetAllRequest().worklogs - createWorklogs.toSet()
 
             assertWorklogs(deleteTestCase, deleteWorklogs, isExported = false)
 
