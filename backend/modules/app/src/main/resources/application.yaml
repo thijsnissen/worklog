@@ -37,7 +37,8 @@ adapters:
       host: "${TEMPO_CLIENT_HTTP_CONFIG_HOST:localhost}"
       api-key: "${TEMPO_CLIENT_HTTP_CONFIG_API_KEY}"
       account-id: "${TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID}"
-      max-concurrent-requests: "${TEMPO_CLIENT_HTTP_CONFIG_MAX_CONCURRENT_REQUESTS:5}"
+      max-concurrent-requests: "${TEMPO_CLIENT_HTTP_CONFIG_MAX_CONCURRENT_REQUESTS:3}"
+      min-request-interval: "${TEMPO_CLIENT_HTTP_CONFIG_MIN_REQUEST_INTERVAL:1s}"
   worklog-repository-h2:
     config:
       table-name: "${WORKLOG_REPOSITORY_H2_CONFIG_TABLE_NAME:worklog.worklogs}"
@@ -55,7 +56,7 @@ libs:
           attempts: "${LIB_HTTP_CLIENT_RETRY_ATTEMPTS:3}"
           min-backoff: "${LIB_HTTP_CLIENT_RETRY_MIN_BACKOFF:500ms}"
           max-backoff: "${LIB_HTTP_CLIENT_RETRY_MAX_BACKOFF:30s}"
-          jitter: "${LIB_HTTP_CLIENT_RETRY_JITTER:0.1}"
+          jitter: "${LIB_HTTP_CLIENT_RETRY_JITTER:0.5}"
 
 logging:
   level:
