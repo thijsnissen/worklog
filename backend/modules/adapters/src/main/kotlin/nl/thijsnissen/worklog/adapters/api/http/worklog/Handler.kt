@@ -26,8 +26,7 @@ class Handler(val service: WorklogService, val validator: Validator) {
     suspend fun getAll(request: ServerRequest): ServerResponse =
         when (val result = service.getAll()) {
             is WorklogResult.WorklogsSuccess ->
-                ServerResponse.ok()
-                    .bodyValueAndAwait(GetAllResponse.Companion.fromDomain(result.worklogs))
+                ServerResponse.ok().bodyValueAndAwait(GetAllResponse.fromDomain(result.worklogs))
             else -> HttpError.internalServerError.toServerResponse()
         }
 

@@ -99,7 +99,7 @@ data class TestData(
                     )
                 }
             val worklogs =
-                (0..size - 1).map {
+                (0..<size).map {
                     Worklog(
                         id = ids[it],
                         issueId = issueIds[it],
@@ -143,10 +143,10 @@ data class TestData(
         ): List<Instant> = List(size) { randomInstant(min, max) }
 
         fun randomInt(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Int =
-            Random.Default.nextInt(min, max)
+            Random.nextInt(min, max)
 
         fun randomLong(min: Long = Long.MIN_VALUE, max: Long = Long.MAX_VALUE): Long =
-            Random.Default.nextLong(min, max)
+            Random.nextLong(min, max)
 
         fun randomLongs(
             min: Long = Long.MIN_VALUE,
