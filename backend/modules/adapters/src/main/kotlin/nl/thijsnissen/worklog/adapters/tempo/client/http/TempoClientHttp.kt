@@ -1,6 +1,8 @@
 package nl.thijsnissen.worklog.adapters.tempo.client.http
 
 import java.util.UUID
+import kotlin.time.measureTimedValue
+import kotlin.time.toJavaDuration
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -38,20 +40,20 @@ class TempoClientHttp(val config: TempoClientHttpConfig, val client: WebClient) 
 
     private suspend fun request(issueId: IssueId, entries: List<TimeEntry>): List<IssueId> =
         semaphore.withPermit {
-            val startTime = System.currentTimeMillis()
-
-            val response =
-                client
-                    .post()
-                    .uri(config.host.resolve("worklogs/issue/${issueId.value}/bulk"))
-                    .headers { it.setBearerAuth(config.apiKey) }
-                    .bodyValue(entries.fromDomain(config.accountId))
-                    .retrieve()
-                    .awaitBody<BulkResponse>()
-                    .toDomain()
+            val (response, duration) =
+                measureTimedValue {
+                    client
+                        .post()
+                        .uri(config.host.resolve("worklogs/issue/${issueId.value}/bulk"))
+                        .headers { it.setBearerAuth(config.apiKey) }
+                        .bodyValue(entries.fromDomain(config.accountId))
+                        .retrieve()
+                        .awaitBody<BulkResponse>()
+                        .toDomain()
+                }
 
             // To prevent rate limits from Tempo API
-            delay(config.minRequestInterval.minusMillis(System.currentTimeMillis() - startTime))
+            delay(config.minRequestInterval - duration.toJavaDuration())
 
             response
         }
