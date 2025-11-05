@@ -16,7 +16,7 @@ reactor-kotlin-extensions = "1.2.4"
 reactor-test = "3.7.12"
 spring-boot = "4.0.0-RC1"
 springdoc-openapi-plugin = "1.9.0"
-springdoc-openapi-webflux = "3.0.0-M1"
+springdoc-openapi-webflux = "3.0.0-RC1"
 swagger = "2.2.40"
 
 [libraries]
