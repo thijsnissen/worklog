@@ -2,9 +2,12 @@ name: Kotlin Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'main'
   pull_request:
-    branches: [ main ]
+    paths:
+      - '**'
+      - '!frontend/**'
 
 jobs:
   kotlin-build:
