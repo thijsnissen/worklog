@@ -37,7 +37,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.TestConstructor
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBodilessEntity
 import org.springframework.web.reactive.function.client.awaitBody
@@ -45,7 +44,6 @@ import tools.jackson.databind.json.JsonMapper
 import tools.jackson.module.kotlin.readValue
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [ApplicationTest.Companion.Beans::class])
 class ApplicationTest(
     val client: WebClient,

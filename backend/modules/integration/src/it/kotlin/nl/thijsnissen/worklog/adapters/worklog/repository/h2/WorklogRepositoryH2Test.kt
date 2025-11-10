@@ -12,10 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.TestConstructor
 
 @SpringBootTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [WorklogRepositoryH2Test.Companion.Beans::class])
 class WorklogRepositoryH2Test(val repository: WorklogRepositoryH2) {
     @Test

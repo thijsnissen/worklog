@@ -32,12 +32,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.TestConstructor
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
 
 @SpringBootTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [ApiHttpWorklogTest.Companion.Beans::class])
 class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceMock) {
     @Test

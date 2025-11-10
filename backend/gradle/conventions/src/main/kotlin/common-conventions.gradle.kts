@@ -61,6 +61,7 @@ testing {
             targets.all {
                 testTask.configure {
                     testLogging { events("passed", "skipped", "failed") }
+                    systemProperty("spring.test.constructor.autowire.mode", "all")
                 }
             }
         }
