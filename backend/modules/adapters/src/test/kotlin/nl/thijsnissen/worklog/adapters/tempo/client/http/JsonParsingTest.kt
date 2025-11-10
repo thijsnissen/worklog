@@ -15,12 +15,10 @@ import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.boot.test.autoconfigure.json.JsonTest
-import org.springframework.test.context.TestConstructor
 import tools.jackson.databind.json.JsonMapper
 import tools.jackson.module.kotlin.readValue
 
 @JsonTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class JsonParsingTest(val jsonMapper: JsonMapper) {
     @Test
     fun encodeBulkRequest() {

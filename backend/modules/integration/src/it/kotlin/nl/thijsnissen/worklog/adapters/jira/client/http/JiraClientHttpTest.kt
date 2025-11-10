@@ -19,11 +19,9 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.TestConstructor
 import tools.jackson.databind.json.JsonMapper
 
 @SpringBootTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ContextConfiguration(initializers = [JiraClientHttpTest.Companion.Beans::class])
 class JiraClientHttpTest(
     val client: JiraClientHttp,
