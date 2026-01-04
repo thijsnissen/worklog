@@ -1,3 +1,7 @@
+group = "nl.thijsnissen"
+
+description = "Simple service for logging Toggl Track entries in Jira Tempo"
+
 plugins {
     id("application-conventions")
     id("common-conventions")

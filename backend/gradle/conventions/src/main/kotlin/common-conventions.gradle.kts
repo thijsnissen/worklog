@@ -19,7 +19,7 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(24)
+    jvmToolchain(25)
 
     compilerOptions {
         freeCompilerArgs.addAll(

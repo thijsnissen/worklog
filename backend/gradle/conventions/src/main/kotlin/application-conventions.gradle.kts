@@ -1,9 +1,7 @@
 import utils.DockerImageTag
+import utils.versionCatalogUnsafe
 
-group = "nl.thijsnissen"
-version = "0.1.0-SNAPSHOT"
-
-description = "Simple service for logging Toggl Track entries in Jira Tempo"
+version = versionCatalogUnsafe.findVersion("semver").get()
 
 plugins {
     application
