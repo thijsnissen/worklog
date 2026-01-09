@@ -62,6 +62,7 @@ testing {
                 testTask.configure {
                     testLogging { events("passed", "skipped", "failed") }
                     systemProperty("spring.test.constructor.autowire.mode", "all")
+                    jvmArgs("--enable-native-access=ALL-UNNAMED")
                 }
             }
         }
@@ -77,6 +78,10 @@ configurations.named("endToEndTestImplementation") {
 
 tasks.check {
     dependsOn("integrationTest", "endToEndTest")
+}
+
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
 
 ktfmt {
