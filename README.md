@@ -38,7 +38,7 @@ Generate the OpenApiDocs by running `./gradlew generateOpenApiDocs --no-configur
 The `--no-configuration-cache` flag is included because [jib](https://github.com/GoogleContainerTools/jib) and [OpenAPI Generator](https://plugins.gradle.org/plugin/org.openapi.generator) do not yet support configuration cache.
 
 ## Frontend
-To interact with the application through the GUI exposed at [http://localhost:8080](http://localhost:8080), you first need to generate the corresponding files. Run the following command from the `./frontend` directory using [Node.js](https://nodejs.org/en): `npm install && npm run build`. Then, start the backend as described above.
+To interact with the application through the GUI exposed at [http://localhost:8080](http://localhost:8080), you first need to generate the corresponding frontend files. This is done based on the OpenApiDocs, so make sure to generate these first (as described above). Then run the following command from the `./frontend` directory using [Node.js](https://nodejs.org/en): `npm install && npm run build`. Afterwards, start the backend as described above.
 
 ## Stack
 This application is an example of a [reactive](https://spring.io/reactive) backend system build with [Kotlin]([https://kotlinlang.org/), [Spring Boot](https://spring.io/projects/spring-boot) and [Gradle](https://gradle.org/) using the [Ports and Adapters](https://alistair.cockburn.us/hexagonal-architecture/) architecture.
