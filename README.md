@@ -3,7 +3,8 @@ Simple service for logging Toggl Track entries in Jira Tempo.
 
 ## Setup
 The Toggl Track entry description should start with the Jira issue key for which time is being logged.
-An optional description can then be provided using a delimiter which can be configured through `WORKLOG_SERVICE_IMPL_CONFIG_DELIMITER`, which defaults to a colon (`:`), e.g.:
+An optional description can then be provided using a delimiter which can be configured through
+`WORKLOG_SERVICE_IMPL_CONFIG_DELIMITER`, which defaults to a colon (`:`), e.g.:
 
 ```
 <JiraIssueKey><:>?<description>?
@@ -35,13 +36,18 @@ Building an image can be done in one of two ways:
 
 Generate the OpenApiDocs by running `./gradlew generateOpenApiDocs --no-configuration-cache`.
 
-The `--no-configuration-cache` flag is included because [jib](https://github.com/GoogleContainerTools/jib) and [OpenAPI Generator](https://plugins.gradle.org/plugin/org.openapi.generator) do not yet support configuration cache.
+The `--no-configuration-cache` flag is included because [jib](https://github.com/GoogleContainerTools/jib) and [OpenAPI Generator](https://plugins.gradle.org/plugin/org.openapi.generator) do not
+yet support configuration cache.
 
 ## Frontend
-To interact with the application through the GUI exposed at [http://localhost:8080](http://localhost:8080), you first need to generate the corresponding frontend files. This is done based on the OpenApiDocs, so make sure to generate these first (as described above). Then run the following command from the `./frontend` directory using [Node.js](https://nodejs.org/en): `npm install && npm run build`. Afterwards, start the backend as described above.
+To interact with the application through the GUI exposed at [http://localhost:8080](http://localhost:8080), you first need to
+generate the corresponding frontend files. This is done based on the OpenApiDocs, so make sure to generate
+these first (as described above). Then run the following command from the `./frontend` directory using
+[Node.js](https://nodejs.org/en): `npm install && npm run build`. Afterward, start the backend as described above.
 
 ## Stack
-This application is an example of a [reactive](https://spring.io/reactive) backend system build with [Kotlin]([https://kotlinlang.org/), [Spring Boot](https://spring.io/projects/spring-boot) and [Gradle](https://gradle.org/) using the [Ports and Adapters](https://alistair.cockburn.us/hexagonal-architecture/) architecture.
+This application is an example of a [reactive](https://spring.io/reactive) backend system build with [Kotlin]([https://kotlinlang.org/), [Spring Boot](https://spring.io/projects/spring-boot)
+and [Gradle](https://gradle.org/) using the [Ports and Adapters](https://alistair.cockburn.us/hexagonal-architecture/) architecture.
 It uses [H2 Database Engine](https://h2database.com/html/main.html) for in-memory data storage.
 
 The frontend uses basic [HTML](https://html.spec.whatwg.org), [CSS](https://www.w3.org/TR/css/) and [TypeScript](https://www.typescriptlang.org/) with [Vite](https://vite.dev/) as the build tool.
