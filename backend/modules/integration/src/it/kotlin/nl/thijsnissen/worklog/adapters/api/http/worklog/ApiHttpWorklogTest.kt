@@ -246,8 +246,9 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
     fun postWorklogsExportExportByIdsIdsNotFoundError() {
         val ids = randomUuids()
         val request = ExportByIdsRequest(ids)
-        val errors =
-            ids.map { HttpError.Companion.ValidationError(field = "id", message = it.toString()) }
+        val errors = ids.map {
+            HttpError.Companion.ValidationError(field = "id", message = it.toString())
+        }
 
         service.set(WorklogResult.IdsNotFoundError(ids))
 
@@ -329,8 +330,9 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
     fun postWorklogsDeleteDeleteByIdsIdsNotFoundError() {
         val ids = randomUuids()
         val request = DeleteByIdsRequest(ids)
-        val errors =
-            ids.map { HttpError.Companion.ValidationError(field = "id", message = it.toString()) }
+        val errors = ids.map {
+            HttpError.Companion.ValidationError(field = "id", message = it.toString())
+        }
 
         service.set(WorklogResult.IdsNotFoundError(ids))
 
