@@ -79,16 +79,15 @@ object OpenApi {
                             responses.fold(ApiResponses()) { acc, (status, response) ->
                                 acc.addApiResponse(status.value().toString(), response)
                             }
-                        this.parameters =
-                            parameters.map {
-                                Parameter().apply {
-                                    name = it.name
-                                    `in` = it.type
-                                    description = it.description
-                                    required = it.required
-                                    schema = it.schema
-                                }
+                        this.parameters = parameters.map {
+                            Parameter().apply {
+                                name = it.name
+                                `in` = it.type
+                                description = it.description
+                                required = it.required
+                                schema = it.schema
                             }
+                        }
 
                         if (!isAny<Req>()) {
                             this.requestBody =

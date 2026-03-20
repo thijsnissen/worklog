@@ -27,9 +27,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHt
     fun decodeInRangeResponse() {
         val entries = randomTimeEntries()
 
-        val json =
-            entries.joinToString {
-                """
+        val json = entries.joinToString {
+            """
                 {
                     "id": ${randomInt()},
                     "workspace_id": ${randomInt()},
@@ -51,8 +50,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHt
                     "pid": ${randomInt()}
                 }
             """
-                    .trimIndent()
-            }
+                .trimIndent()
+        }
 
         jsonMapper.readValue<InRangeResponse>("[ $json ]").let {
             assertSameElements(entries.map { it.description.value }, it.map { it.description })

@@ -25,9 +25,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper) {
         val authorAccountId = randomString()
         val request = randomTimeEntries().fromDomain(authorAccountId)
 
-        val json =
-            request.joinToString {
-                """
+        val json = request.joinToString {
+            """
                     {
                         "authorAccountId": "$authorAccountId",
                         "description": "${it.description}",
@@ -36,8 +35,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper) {
                         "timeSpentSeconds": ${it.timeSpentSeconds}
                     }
                  """
-                    .trimIndent()
-            }
+                .trimIndent()
+        }
 
         JSONAssert.assertEquals(
             "[ $json ]",
@@ -50,13 +49,12 @@ class JsonParsingTest(val jsonMapper: JsonMapper) {
     fun decodeBulkResponse() {
         val issueIds = randomIssueIds()
 
-        val response =
-            issueIds.joinToString {
-                val accountId = randomString()
-                val startDateTime = randomLocalDateTime()
-                val tempoWorklogId = randomInt()
+        val response = issueIds.joinToString {
+            val accountId = randomString()
+            val startDateTime = randomLocalDateTime()
+            val tempoWorklogId = randomInt()
 
-                """
+            """
                 {
                     "self": "https://api.eu.tempo.io/4/worklogs/$tempoWorklogId",
                     "tempoWorklogId": $tempoWorklogId,
@@ -86,8 +84,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper) {
                     }
                 }
             """
-                    .trimIndent()
-            }
+                .trimIndent()
+        }
 
         jsonMapper.readValue<BulkResponse>("[ $response ]").let {
             assertSameElements(issueIds.map { it.value }, it.map { it.issue.id })
