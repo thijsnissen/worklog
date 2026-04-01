@@ -13,7 +13,7 @@ An optional description can then be provided using a delimiter which can be conf
 The following environment variables should be provided:
 ```
 TOGGL_TRACK_CLIENT_HTTP_CONFIG_HOST=""
-TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_KEY=""
+TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN=""
 TOGGL_TRACK_CLIENT_HTTP_CONFIG_TIME_ZONE=""
 JIRA_CLIENT_HTTP_CONFIG_HOST=""
 JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL=""

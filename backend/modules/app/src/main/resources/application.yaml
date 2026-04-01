@@ -25,18 +25,18 @@ adapters:
   toggl-track-client-http:
     config:
       host: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_HOST:localhost}"
-      api-token: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN}"
+      api-token: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN:}"
       time-zone: "${TOGGL_TRACK_CLIENT_HTTP_CONFIG_TIME_ZONE:Europe/Amsterdam}"
   jira-client-http:
     config:
       host: "${JIRA_CLIENT_HTTP_CONFIG_HOST:localhost}"
-      user-email: "${JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL}"
-      api-key: "${JIRA_CLIENT_HTTP_CONFIG_API_KEY}"
+      user-email: "${JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL:}"
+      api-key: "${JIRA_CLIENT_HTTP_CONFIG_API_KEY:}"
   tempo-client-http:
     config:
       host: "${TEMPO_CLIENT_HTTP_CONFIG_HOST:localhost}"
-      api-key: "${TEMPO_CLIENT_HTTP_CONFIG_API_KEY}"
-      account-id: "${TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID}"
+      api-key: "${TEMPO_CLIENT_HTTP_CONFIG_API_KEY:}"
+      account-id: "${TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID:}"
       max-concurrent-requests: "${TEMPO_CLIENT_HTTP_CONFIG_MAX_CONCURRENT_REQUESTS:3}"
       min-request-interval: "${TEMPO_CLIENT_HTTP_CONFIG_MIN_REQUEST_INTERVAL:1s}"
   worklog-repository-h2:
