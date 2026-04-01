@@ -5,6 +5,7 @@ import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.JiraClientHttpLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TestData
+import nl.thijsnissen.worklog.TestData.Companion.randomString
 import nl.thijsnissen.worklog.adapters.jira.client.http.dto.BulkFetchResponse
 import nl.thijsnissen.worklog.adapters.jira.client.http.dto.Response
 import nl.thijsnissen.worklog.dispatcher
@@ -61,6 +62,7 @@ class JiraClientHttpTest(
                             .setHeader("Content-Type", "application/json")
                             .setBody(response)
                             .setResponseCode(200)
+
                     else -> MockResponse().setResponseCode(404)
                 }
             }
@@ -73,6 +75,8 @@ class JiraClientHttpTest(
                     "JIRA_CLIENT_HTTP_CONFIG_HOST",
                     mockWebServer.url("/").toString(),
                 )
+                System.setProperty("JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL", randomString())
+                System.setProperty("JIRA_CLIENT_HTTP_CONFIG_API_KEY", randomString())
 
                 (JiraClientHttpLive + HttpClientLive + MockWebServerBean(mockWebServer))()
                     .initialize(context)

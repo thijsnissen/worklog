@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.runTest
 import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TestData
+import nl.thijsnissen.worklog.TestData.Companion.randomString
 import nl.thijsnissen.worklog.TogglTrackClientHttpConfigLive
 import nl.thijsnissen.worklog.TogglTrackClientHttpLive
 import nl.thijsnissen.worklog.adapters.toggl.track.client.http.TogglTrackClientHttp.Companion.toRFC3339
@@ -102,6 +103,7 @@ class TogglTrackClientHttpTest(
                     "TOGGL_TRACK_CLIENT_HTTP_CONFIG_HOST",
                     mockWebServer.url("/").toString(),
                 )
+                System.setProperty("TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN", randomString())
 
                 (TogglTrackClientHttpLive +
                         TogglTrackClientHttpConfigLive +

@@ -3,9 +3,10 @@ package nl.thijsnissen.worklog
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.test.runTest
+import nl.thijsnissen.worklog.TestData.Companion.randomString
 import nl.thijsnissen.worklog.adapters.api.http.worklog.dto.DeleteByIdsRequest
 import nl.thijsnissen.worklog.adapters.api.http.worklog.dto.DeleteByIdsResponse
 import nl.thijsnissen.worklog.adapters.api.http.worklog.dto.ExportByIdsRequest
@@ -331,6 +332,11 @@ class ApplicationTest(
                 System.setProperty("TOGGL_TRACK_CLIENT_HTTP_CONFIG_HOST", mockWebServerUrl)
                 System.setProperty("JIRA_CLIENT_HTTP_CONFIG_HOST", mockWebServerUrl)
                 System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_HOST", mockWebServerUrl)
+                System.setProperty("TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN", randomString())
+                System.setProperty("JIRA_CLIENT_HTTP_CONFIG_USER_EMAIL", randomString())
+                System.setProperty("JIRA_CLIENT_HTTP_CONFIG_API_KEY", randomString())
+                System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_API_KEY", randomString())
+                System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID", randomString())
 
                 (
                     // Service

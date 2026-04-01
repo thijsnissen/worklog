@@ -4,6 +4,7 @@ import java.time.ZoneOffset
 import nl.thijsnissen.worklog.TestData.Companion.randomBoolean
 import nl.thijsnissen.worklog.TestData.Companion.randomInt
 import nl.thijsnissen.worklog.TestData.Companion.randomLocalDateTime
+import nl.thijsnissen.worklog.TestData.Companion.randomString
 import nl.thijsnissen.worklog.TestData.Companion.randomTimeEntries
 import nl.thijsnissen.worklog.TogglTrackClientHttpConfigLive
 import nl.thijsnissen.worklog.adapters.toggl.track.client.http.dto.InRangeResponse
@@ -71,6 +72,8 @@ class JsonParsingTest(val jsonMapper: JsonMapper, val config: TogglTrackClientHt
     companion object {
         object Beans : ApplicationContextInitializer<GenericApplicationContext> {
             override fun initialize(context: GenericApplicationContext) {
+                System.setProperty("TOGGL_TRACK_CLIENT_HTTP_CONFIG_API_TOKEN", randomString())
+
                 TogglTrackClientHttpConfigLive().initialize(context)
             }
         }
