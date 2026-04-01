@@ -5,6 +5,7 @@ import nl.thijsnissen.worklog.HttpClientLive
 import nl.thijsnissen.worklog.MockWebServerBean
 import nl.thijsnissen.worklog.TempoClientHttpLive
 import nl.thijsnissen.worklog.TestData
+import nl.thijsnissen.worklog.TestData.Companion.randomString
 import nl.thijsnissen.worklog.adapters.tempo.client.http.dto.Issue
 import nl.thijsnissen.worklog.adapters.tempo.client.http.dto.Response
 import nl.thijsnissen.worklog.assertSameElements
@@ -90,6 +91,8 @@ class TempoClientHttpTest(
                     "TEMPO_CLIENT_HTTP_CONFIG_HOST",
                     mockWebServer.url("/").toString(),
                 )
+                System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_API_KEY", randomString())
+                System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID", randomString())
 
                 (TempoClientHttpLive + HttpClientLive + MockWebServerBean(mockWebServer))()
                     .initialize(context)

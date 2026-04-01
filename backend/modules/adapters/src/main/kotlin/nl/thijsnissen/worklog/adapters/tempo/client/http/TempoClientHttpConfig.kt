@@ -9,4 +9,9 @@ data class TempoClientHttpConfig(
     val accountId: String,
     val maxConcurrentRequests: Int,
     val minRequestInterval: Duration,
-)
+) {
+    init {
+        require(apiKey.isNotBlank()) { "Field apiKey cannot be blank." }
+        require(accountId.isNotBlank()) { "Field accountId cannot be blank." }
+    }
+}
