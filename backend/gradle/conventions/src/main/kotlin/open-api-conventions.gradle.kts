@@ -13,4 +13,8 @@ dependencies {
 openApi {
     apiDocsUrl.set("http://localhost:8080/api/v1/docs")
     outputDir.set(file("./../../../"))
+
+    customBootRun {
+        workingDir.set(project.layout.projectDirectory)
+    }
 }
