@@ -34,18 +34,18 @@ kotlin {
 
 testing {
     suites {
-        val test by getting(JvmTestSuite::class) {
+        getByName<JvmTestSuite>("test") {
             useJUnitJupiter()
         }
 
-        val integrationTest by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("integrationTest") {
             sources {
                 kotlin.srcDir("src/it/kotlin")
                 resources.srcDir("src/it/resources")
             }
         }
 
-        val endToEndTest by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("endToEndTest") {
             sources {
                 kotlin.srcDir("src/e2e/kotlin")
                 resources.srcDir("src/e2e/resources")
