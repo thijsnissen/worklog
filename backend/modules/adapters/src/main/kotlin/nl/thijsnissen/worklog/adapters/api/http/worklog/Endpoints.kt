@@ -56,7 +56,8 @@ class Endpoints(val handler: Handler) {
                                 summary = "Get all worklogs",
                                 tag = TAG,
                                 responses =
-                                    listOf(response<GetAllResponse>(HttpStatus.OK)) + errorResponses,
+                                    listOf(response<GetAllResponse>(HttpStatus.OK)) +
+                                        errorResponses,
                             ),
                         HttpMethod.POST to
                             operation<Any>(

@@ -9,11 +9,11 @@ import org.springframework.boot.runApplication
 
 fun main(args: Array<String>) {
     runCatching {
-            dotenv {
-                directory = "./../../../.env"
-                systemProperties = true
-            }
+        dotenv {
+            directory = "./../../../.env"
+            systemProperties = true
         }
+    }
         .onFailure { println("No .env file found.") }
 
     runApplication<Application>(*args) {

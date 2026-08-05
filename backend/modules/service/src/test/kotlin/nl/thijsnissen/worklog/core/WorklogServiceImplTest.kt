@@ -205,7 +205,8 @@ class WorklogServiceImplTest {
 
             assertEquals(
                 testCase.size.toLong(),
-                (service.exportByIds(testCase.ids) as WorklogResult.ExportByIdsSuccess).rowsAffected,
+                (service.exportByIds(testCase.ids) as WorklogResult.ExportByIdsSuccess)
+                    .rowsAffected,
             )
             assertSameElements(testCase.worklogs, tempoClient.get())
             assertSameElements(
@@ -239,7 +240,8 @@ class WorklogServiceImplTest {
 
             assertEquals(
                 testCase.size.toLong(),
-                (service.deleteByIds(testCase.ids) as WorklogResult.DeleteByIdsSuccess).rowsAffected,
+                (service.deleteByIds(testCase.ids) as WorklogResult.DeleteByIdsSuccess)
+                    .rowsAffected,
             )
             assertSameElements(emptyList(), repository.getAll())
         }
