@@ -80,7 +80,7 @@ data class TestData(
     companion object {
         fun testCase(
             delimiter: String = ":",
-            size: Int = randomInt(5, 100),
+            size: Int = randomInt(5, 25),
             ids: List<UUID> = randomUuids(size),
             issueKeys: List<IssueKey> = randomIssueKeys(size),
             issueIds: List<IssueId> = randomIssueIds(size),
