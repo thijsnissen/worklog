@@ -8,10 +8,10 @@ import {
     showSuccess,
     validateDateTimeRange,
     validateNonEmptyList,
-} from "../utils.js";
+} from "../utils";
 import { stateHandler } from "./stateHandler";
-import { Worklog } from "../types/aliasses.js";
-import { deleteByIds, exportByIds, flush, getAll, importInRange } from "../api/api.js";
+import type { Worklog } from "../types/aliasses";
+import { deleteByIds, exportByIds, flush, getAll, importInRange } from "../api/api";
 import {
     DEFAULT_WORKLOGS_TABLE,
     DELETE_BUTTON_ID,
@@ -25,7 +25,7 @@ import {
     WORKLOGS_TABLE_ID,
     WORKLOGS_TABLE_ROW_ID,
 } from "../constants/constants";
-import { StateHandler, WorklogsTable } from "../types/types.js";
+import type { StateHandler, WorklogsTable } from "../types/types";
 
 const { getState, setState }: StateHandler<WorklogsTable> = stateHandler(DEFAULT_WORKLOGS_TABLE);
 

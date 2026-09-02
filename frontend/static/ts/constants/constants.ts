@@ -1,5 +1,5 @@
-import { Worklog } from "../types/aliasses";
-import { WorklogsTable } from "../types/types";
+import type { Worklog } from "../types/aliasses";
+import type { WorklogsTable } from "../types/types";
 
 export const API_BASE_URL = "/api/v1";
 
