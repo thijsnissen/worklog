@@ -143,12 +143,11 @@ class Handler(val service: WorklogService, val validator: Validator) {
         }
 
     companion object {
-        fun String.toLocalDateTime(): LocalDateTime? =
-            runCatching {
-                    URLDecoder.decode(this, StandardCharsets.UTF_8).let {
-                        LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                    }
-                }
-                .getOrNull()
+        fun String.toLocalDateTime(): LocalDateTime? = runCatching {
+            URLDecoder.decode(this, StandardCharsets.UTF_8).let {
+                LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            }
+        }
+            .getOrNull()
     }
 }

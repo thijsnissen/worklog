@@ -338,6 +338,11 @@ class ApplicationTest(
                 System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_API_KEY", randomString())
                 System.setProperty("TEMPO_CLIENT_HTTP_CONFIG_ACCOUNT_ID", randomString())
 
+                // The export endpoint is intentionally slow because Tempo is rate limited;
+                // the default 30s timeouts are sized for a single outbound request.
+                System.setProperty("LIB_HTTP_CLIENT_TIMEOUT_RESPONSE", "5m")
+                System.setProperty("LIB_HTTP_CLIENT_TIMEOUT_READ", "5m")
+
                 (
                     // Service
                     WorklogServiceImplLive +
