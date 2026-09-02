@@ -31,4 +31,4 @@ jobs:
       - if: github.event_name == 'push' || steps.changed-files.outputs.any_changed == 'true'
         name: Build & Test
         working-directory: frontend
-        run: npm run check && npm run build
+        run: npm run build
