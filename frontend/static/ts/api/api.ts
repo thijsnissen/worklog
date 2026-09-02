@@ -1,4 +1,4 @@
-import {
+import type {
     DeleteByIdsRequest,
     DeleteByIdsResponse,
     ExportByIdsRequest,
@@ -9,9 +9,9 @@ import {
     ImportInRangeResponse,
     ImportInRangeStartInclusive,
     Worklog,
-} from "../types/aliasses.js";
+} from "../types/aliasses";
 import { API_BASE_URL, API_REQUEST_URLS } from "../constants/constants";
-import { ApiRequestOptions } from "../types/types.js";
+import type { ApiRequestOptions } from "../types/types";
 
 export async function getAll(): Promise<Worklog[]> {
     const result: GetAllResponse = await apiRequest(`${API_BASE_URL}${API_REQUEST_URLS["getAll"].path}`);

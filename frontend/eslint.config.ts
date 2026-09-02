@@ -23,11 +23,10 @@ export default defineConfig([
             },
             parser: tsParser,
             parserOptions: {
-                project: true,
+                projectService: true,
             },
         },
         rules: {
-            "@typescript-eslint/no-unused-vars": "warn",
             "no-console": "warn",
             "no-debugger": "error",
         },
@@ -55,6 +54,6 @@ export default defineConfig([
         },
     },
     {
-        ignores: ["node_modules/**/*", "dist/**/*", "eslint.config.ts"],
+        ignores: ["node_modules/**/*", "dist/**/*", "*.config.ts"],
     },
 ]);

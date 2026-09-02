@@ -12,7 +12,7 @@ import {
     Share,
     Trash2,
 } from "lucide";
-import { MessageType, StateHandler, TimeoutId } from "./types/types.js";
+import type { MessageType, StateHandler, TimeoutId } from "./types/types";
 import { MESSAGE_BOX_ID } from "./constants/constants";
 import { stateHandler } from "./service/stateHandler";
 

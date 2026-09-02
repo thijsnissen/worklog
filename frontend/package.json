@@ -7,7 +7,8 @@
         "copy:assets": "cpy \"dist/assets/**/*\" \"./../backend/modules/app/src/main/resources/static/assets/\"",
         "copy:public": "cpy \"dist/public/**/*\" \"./../backend/modules/app/src/main/resources/public/\"",
         "types": "openapi-typescript ./../openapi.json -o static/ts/types/api.d.ts",
-        "check": "eslint --flag unstable_native_nodejs_ts_config --max-warnings=0 && prettier --check .",
+        "typecheck": "tsc --noEmit",
+        "check": "npm run typecheck && eslint --flag unstable_native_nodejs_ts_config --max-warnings=0 && prettier --check .",
         "normalize": "eslint --flag unstable_native_nodejs_ts_config --fix && prettier --write .",
         "build": "npm run types && npx vite build && npm run copy:assets && npm run copy:public"
     },

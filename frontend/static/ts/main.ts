@@ -8,7 +8,7 @@ import {
     toggleAllCheckboxes,
     updateButtons,
     updateSortKey,
-} from "./service/service.js";
+} from "./service/service";
 import {
     DELETE_BUTTON_ID,
     END_DATE_TIME_INCLUSIVE_ID,
@@ -18,7 +18,7 @@ import {
     START_DATE_TIME_INCLUSIVE_ID,
     WORKLOGS_SORTABLE_KEYS,
 } from "./constants/constants";
-import { Worklog } from "./types/aliasses";
+import type { Worklog } from "./types/aliasses";
 
 document.addEventListener("DOMContentLoaded", (): void => {
     document.addEventListener("click", (e: MouseEvent) => {

@@ -1,4 +1,4 @@
-import { StateHandler } from "../types/types.js";
+import type { StateHandler } from "../types/types";
 
 export function stateHandler<T extends object>(initial: T): StateHandler<T> {
     let state: Readonly<T> = initial;

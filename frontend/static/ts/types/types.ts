@@ -1,4 +1,4 @@
-import { Worklog } from "./aliasses";
+import type { Worklog } from "./aliasses";
 
 export type ApiRequestOptions = { method: string; headers?: Record<string, string>; body?: string };
 
