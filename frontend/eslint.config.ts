@@ -1,10 +1,11 @@
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import htmlPlugin from "@html-eslint/eslint-plugin";
 import cssPlugin from "@eslint/css";
 import tsEslint from "typescript-eslint";
 import tsParser from "@typescript-eslint/parser";
 
-export default [
+export default defineConfig([
     // TypeScript
     ...tsEslint.configs.recommendedTypeChecked.map((conf) => ({
         ...conf,
@@ -54,6 +55,6 @@ export default [
         },
     },
     {
-        ignores: ["node_modules/**/*", "dist/**/*"],
+        ignores: ["node_modules/**/*", "dist/**/*", "eslint.config.ts"],
     },
-];
+]);
