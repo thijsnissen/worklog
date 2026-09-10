@@ -17,7 +17,7 @@ reactor-test = "3.8.7"
 semver = "0.1.0-SNAPSHOT"
 spring-boot = "4.1.1"
 springdoc-openapi-plugin = "1.9.0"
-springdoc-openapi-webflux = "3.1.0"
+springdoc-openapi-webflux = "3.1.1"
 swagger = "2.2.55"
 
 [libraries]
