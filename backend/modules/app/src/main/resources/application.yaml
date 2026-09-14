@@ -57,6 +57,7 @@ libs:
           min-backoff: "${LIB_HTTP_CLIENT_RETRY_MIN_BACKOFF:500ms}"
           max-backoff: "${LIB_HTTP_CLIENT_RETRY_MAX_BACKOFF:30s}"
           jitter: "${LIB_HTTP_CLIENT_RETRY_JITTER:0.5}"
+        max-in-memory-size-bytes: "${LIB_HTTP_CLIENT_MAX_IN_MEMORY_SIZE_BYTES:1048576}"
 
 logging:
   level:
