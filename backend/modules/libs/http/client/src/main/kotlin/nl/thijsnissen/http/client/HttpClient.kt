@@ -48,6 +48,7 @@ class HttpClient(val config: HttpClientConfig, val builder: WebClient.Builder) {
                 }
 
         return builder
+            .codecs { it.defaultCodecs().maxInMemorySize(config.maxInMemorySizeBytes) }
             .clientConnector(ReactorClientHttpConnector(httpClient))
             .filter { request, next -> next.exchange(request).retryWhen(retry) }
             .build()

@@ -2,7 +2,11 @@ package nl.thijsnissen.http.client
 
 import java.time.Duration
 
-data class HttpClientConfig(val timeout: TimeoutConfig, val retry: RetryConfig)
+data class HttpClientConfig(
+    val timeout: TimeoutConfig,
+    val retry: RetryConfig,
+    val maxInMemorySizeBytes: Int,
+)
 
 data class TimeoutConfig(
     val connection: Duration,
