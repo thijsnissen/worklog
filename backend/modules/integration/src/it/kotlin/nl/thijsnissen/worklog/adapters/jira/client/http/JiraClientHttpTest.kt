@@ -42,8 +42,8 @@ class JiraClientHttpTest(
                     BulkFetchResponse(
                         testCase.issueKeysIssueIds.map { (key, id) ->
                             Response(key.value, id.value)
-                        }
-                    )
+                        },
+                    ),
                 ),
         )
 

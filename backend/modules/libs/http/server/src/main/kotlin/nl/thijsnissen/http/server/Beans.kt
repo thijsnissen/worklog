@@ -7,10 +7,12 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 import org.springframework.web.reactive.function.server.HandlerStrategies
 
 open class HttpServerWebExceptionHandlerBean :
-    BeanRegistrarDsl({
-        registerBean<HttpServerWebExceptionHandler>()
-        registerBean<HandlerStrategies> { HandlerStrategies.withDefaults() }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<HttpServerWebExceptionHandler>()
+            registerBean<HandlerStrategies> { HandlerStrategies.withDefaults() }
+        },
+    )
 
 open class HttpServerCorsWebFilterBean(
     allowedOrigins: List<String>,
@@ -18,19 +20,23 @@ open class HttpServerCorsWebFilterBean(
     allowedHeaders: List<String> = listOf("*"),
     allowCredentials: Boolean = false,
 ) :
-    BeanRegistrarDsl({
-        registerBean<CorsWebFilter> {
-            val config =
-                CorsConfiguration().apply {
-                    this.allowCredentials = allowCredentials
-                    this.allowedOrigins = allowedOrigins
-                    this.allowedMethods = allowedMethods
-                    this.allowedHeaders = allowedHeaders
-                }
+    BeanRegistrarDsl(
+        {
+            registerBean<CorsWebFilter> {
+                val config =
+                    CorsConfiguration().apply {
+                        this.allowCredentials = allowCredentials
+                        this.allowedOrigins = allowedOrigins
+                        this.allowedMethods = allowedMethods
+                        this.allowedHeaders = allowedHeaders
+                    }
 
-            val source =
-                UrlBasedCorsConfigurationSource().apply { registerCorsConfiguration("/**", config) }
+                val source =
+                    UrlBasedCorsConfigurationSource().apply {
+                        registerCorsConfiguration("/**", config)
+                    }
 
-            CorsWebFilter(source)
-        }
-    })
+                CorsWebFilter(source)
+            }
+        },
+    )

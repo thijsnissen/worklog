@@ -62,7 +62,7 @@ class TempoClientHttpTest(
                             .find(it.path.orEmpty())
                             ?.groupValues
                             ?.getOrNull(1)
-                            ?.toLong() ?: -1
+                            ?.toLong() ?: -1,
                     )
 
                 val isAuthorized = it.getHeader("Authorization") == "Bearer $apiKey"
@@ -75,8 +75,8 @@ class TempoClientHttpTest(
                                 jsonMapper.writeValueAsString(
                                     List(issueIds.count { it == issueId }) {
                                         Response(Issue(id = issueId.value))
-                                    }
-                                )
+                                    },
+                                ),
                             )
                             .setResponseCode(200)
                     else -> MockResponse().setResponseCode(404)

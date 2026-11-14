@@ -64,7 +64,7 @@ class WorklogServiceImplTest {
                 (service.importInRange(dateTime, dateTime)
                         as WorklogResult.InvalidDateTimeRangeError)
                     .message
-                    .contains("cannot be equal")
+                    .contains("cannot be equal"),
             )
         }
     }
@@ -80,7 +80,7 @@ class WorklogServiceImplTest {
                         dateTime.minusSeconds(randomLong(min = 1, max = Int.MAX_VALUE.toLong())),
                     ) as WorklogResult.InvalidDateTimeRangeError)
                     .message
-                    .contains("cannot be greater")
+                    .contains("cannot be greater"),
             )
         }
     }
@@ -144,12 +144,12 @@ class WorklogServiceImplTest {
         togglTrackClient.set(
             testCase.timeEntriesWithIssueKeys.map {
                 it.copy(description = Description(" " + it.description.value.uppercase()))
-            }
+            },
         )
         jiraClient.set(
             testCase.issueKeysIssueIds.mapKeys { (issueKey, _) ->
                 IssueKey(issueKey.value.lowercase() + " ")
-            }
+            },
         )
 
         runTest {
@@ -177,9 +177,9 @@ class WorklogServiceImplTest {
                             it.timeEntry.copy(
                                 duration = Duration.ofSeconds(0),
                                 description = Description(""),
-                            )
+                            ),
                     )
-                }
+                },
             )
 
             assertEquals(

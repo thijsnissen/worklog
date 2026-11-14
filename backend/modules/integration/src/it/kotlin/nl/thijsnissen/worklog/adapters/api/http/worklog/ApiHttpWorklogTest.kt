@@ -223,7 +223,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
         val request = ExportByIdsRequest(ids = emptyList())
         val errors =
             listOf(
-                HttpError.Companion.ValidationError(field = "ids", message = "ids cannot be empty")
+                HttpError.Companion.ValidationError(field = "ids", message = "ids cannot be empty"),
             )
 
         client
@@ -307,7 +307,7 @@ class ApiHttpWorklogTest(val client: WebTestClient, val service: WorklogServiceM
         val request = DeleteByIdsRequest(ids = emptyList())
         val errors =
             listOf(
-                HttpError.Companion.ValidationError(field = "ids", message = "ids cannot be empty")
+                HttpError.Companion.ValidationError(field = "ids", message = "ids cannot be empty"),
             )
 
         client
