@@ -5,7 +5,7 @@ import nl.thijsnissen.worklog.domain.IssueId
 import nl.thijsnissen.worklog.domain.IssueKey
 
 class JiraClientMock(
-    val ref: AtomicReference<Map<IssueKey, IssueId>> = AtomicReference(emptyMap())
+    val ref: AtomicReference<Map<IssueKey, IssueId>> = AtomicReference(emptyMap()),
 ) : JiraClient {
     override suspend fun getIssueIds(issueKeys: List<IssueKey>): Map<IssueKey, IssueId> = ref.get()
 

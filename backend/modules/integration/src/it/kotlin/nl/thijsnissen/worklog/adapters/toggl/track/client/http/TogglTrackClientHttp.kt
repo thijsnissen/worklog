@@ -80,7 +80,7 @@ class TogglTrackClientHttpTest(
                 val path =
                     "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${
                         endInclusive.toRFC3339(
-                            timeZone
+                            timeZone,
                         )
                     }"
 

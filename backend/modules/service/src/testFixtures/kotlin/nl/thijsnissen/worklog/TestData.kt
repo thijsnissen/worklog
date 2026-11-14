@@ -94,8 +94,8 @@ data class TestData(
                     timeEntry.copy(
                         description =
                             Description(
-                                "${issueKey.value}${delimiter}${timeEntry.description.value}"
-                            )
+                                "${issueKey.value}${delimiter}${timeEntry.description.value}",
+                            ),
                     )
                 }
             val worklogs =

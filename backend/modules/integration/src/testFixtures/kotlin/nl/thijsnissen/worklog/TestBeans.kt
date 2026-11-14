@@ -12,6 +12,6 @@ open class MockWebServerBean(mockWebServer: MockWebServer = MockWebServer()) :
     BeanRegistrarDsl({ registerBean<MockWebServer> { mockWebServer } })
 
 open class WebTestClientBean(context: GenericApplicationContext) :
-    BeanRegistrarDsl({
-        registerBean<WebTestClient> { WebTestClient.bindToApplicationContext(context).build() }
-    })
+    BeanRegistrarDsl(
+        { registerBean<WebTestClient> { WebTestClient.bindToApplicationContext(context).build() } },
+    )

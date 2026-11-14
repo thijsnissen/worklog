@@ -103,7 +103,7 @@ class Endpoints(val handler: Handler) {
                                 responses =
                                     listOf(response<ExportByIdsResponse>(HttpStatus.OK)) +
                                         errorResponses,
-                            )
+                            ),
                     ),
                 ),
                 OpenApiItem(
@@ -117,14 +117,14 @@ class Endpoints(val handler: Handler) {
                                 responses =
                                     listOf(response<DeleteByIdsResponse>(HttpStatus.OK)) +
                                         errorResponses,
-                            )
+                            ),
                     ),
                 ),
             )
 
         fun servers(): List<OpenApiServer> =
             listOf(
-                OpenApiServer(url = "http://localhost:8080/api/v1", description = "Worklog server")
+                OpenApiServer(url = "http://localhost:8080/api/v1", description = "Worklog server"),
             )
     }
 }

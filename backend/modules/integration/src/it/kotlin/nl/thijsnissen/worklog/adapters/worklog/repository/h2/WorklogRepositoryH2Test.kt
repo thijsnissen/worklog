@@ -29,7 +29,7 @@ class WorklogRepositoryH2Test(val repository: WorklogRepositoryH2) {
                 .partition()
         val isExportedTestCase =
             updateTestCase.copy(
-                worklogs = updateTestCase.worklogs.map { it.copy(isExported = true) }
+                worklogs = updateTestCase.worklogs.map { it.copy(isExported = true) },
             )
 
         runTest {
