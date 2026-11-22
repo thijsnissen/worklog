@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicReference
 import nl.thijsnissen.worklog.domain.TimeEntry
 
 class TogglTrackClientMock(
-    val ref: AtomicReference<List<TimeEntry>> = AtomicReference(emptyList())
+    val ref: AtomicReference<List<TimeEntry>> = AtomicReference(emptyList()),
 ) : TogglTrackClient {
     override suspend fun getTimeEntriesInRange(
         startInclusive: LocalDateTime,

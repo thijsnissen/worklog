@@ -215,7 +215,7 @@ object OpenApi {
             .let { rs ->
                 (rs.referencedSchemas ?: emptyMap()) +
                     requireNotNull(
-                        kClass.simpleName?.let { name -> rs?.schema?.let { name to it } }
+                        kClass.simpleName?.let { name -> rs?.schema?.let { name to it } },
                     ) {
                         "Cannot resolve schema for ${kClass.simpleName}"
                     }

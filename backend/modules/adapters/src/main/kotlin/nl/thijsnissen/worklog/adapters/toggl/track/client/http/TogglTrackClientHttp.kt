@@ -25,8 +25,8 @@ class TogglTrackClientHttp(val config: TogglTrackClientHttpConfig, val client: W
                     startInclusive.toRFC3339(config.timeZone)
                 }&end_date=${
                     endExclusive.toRFC3339(config.timeZone)
-                }"
-                )
+                }",
+                ),
             )
             .headers { it.setBasicAuth(config.apiToken, "api_token") }
             .retrieve()

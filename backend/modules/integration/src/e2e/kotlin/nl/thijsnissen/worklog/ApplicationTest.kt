@@ -135,7 +135,7 @@ class ApplicationTest(
             BulkFetchResponse(
                 testCase.issueKeysIssueIds.map { (key, id) ->
                     JiraClientResponse(key.value, id.value)
-                }
+                },
             )
 
         val togglTrackResponse =
@@ -184,13 +184,13 @@ class ApplicationTest(
         ): ImportInRangeResponse =
             this.post()
                 .uri(
-                    "$BASE_URL/worklogs?startInclusive=${startInclusive.urlEncode()}&endInclusive=${endInclusive.urlEncode()}"
+                    "$BASE_URL/worklogs?startInclusive=${startInclusive.urlEncode()}&endInclusive=${endInclusive.urlEncode()}",
                 )
                 .retrieve()
                 .awaitBody<ImportInRangeResponse>()
 
         suspend fun WebClient.postWorklogsExportExportByIdsRequest(
-            ids: List<UUID>
+            ids: List<UUID>,
         ): ExportByIdsResponse =
             this.post()
                 .uri("$BASE_URL/worklogs/export")
@@ -199,7 +199,7 @@ class ApplicationTest(
                 .awaitBody<ExportByIdsResponse>()
 
         suspend fun WebClient.postWorklogsDeleteDeleteByIdsRequest(
-            ids: List<UUID>
+            ids: List<UUID>,
         ): DeleteByIdsResponse =
             this.post()
                 .uri("$BASE_URL/worklogs/delete")
@@ -233,7 +233,7 @@ class ApplicationTest(
                 val pathTogglTrackClient =
                     "/me/time_entries?start_date=${startInclusive.toRFC3339(timeZone)}&end_date=${
                         endInclusive.toRFC3339(
-                            timeZone
+                            timeZone,
                         )
                     }"
 
@@ -266,7 +266,7 @@ class ApplicationTest(
                             .find(it.path.orEmpty())
                             ?.groupValues
                             ?.getOrNull(1)
-                            ?.toLong() ?: -1
+                            ?.toLong() ?: -1,
                     )
 
                 val responseTempoClient =
@@ -276,8 +276,8 @@ class ApplicationTest(
                             jsonMapper.writeValueAsString(
                                 List(issueIds.count { it == issueIdTempoClient }) {
                                     TempoClientResponse(Issue(id = issueIdTempoClient.value))
-                                }
-                            )
+                                },
+                            ),
                         )
                         .setResponseCode(200)
 

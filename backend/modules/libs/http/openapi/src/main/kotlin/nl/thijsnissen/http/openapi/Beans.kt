@@ -8,8 +8,10 @@ open class OpenApiSpecBean(
     servers: List<OpenApi.OpenApiServer>,
     items: List<OpenApi.OpenApiItem>,
 ) :
-    BeanRegistrarDsl({
-        registerBean {
-            OpenApi.spec(title = title, version = version, servers = servers, items = items)
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean {
+                OpenApi.spec(title = title, version = version, servers = servers, items = items)
+            }
+        },
+    )

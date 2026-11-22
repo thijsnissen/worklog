@@ -32,11 +32,11 @@ class WorklogServiceImpl(
         when {
             startInclusive.isEqual(endInclusive) ->
                 WorklogResult.InvalidDateTimeRangeError(
-                    "startInclusive cannot be equal to endInclusive"
+                    "startInclusive cannot be equal to endInclusive",
                 )
             startInclusive.isAfter(endInclusive) ->
                 WorklogResult.InvalidDateTimeRangeError(
-                    "startInclusive cannot be greater than endInclusive"
+                    "startInclusive cannot be greater than endInclusive",
                 )
             else -> importTimeEntries(startInclusive, endInclusive)
         }
@@ -56,8 +56,8 @@ class WorklogServiceImpl(
                         it.copy(
                             description =
                                 Description(
-                                    it.description.value.substringAfter(config.delimiter).trim()
-                                )
+                                    it.description.value.substringAfter(config.delimiter).trim(),
+                                ),
                         )
                     }
                 }

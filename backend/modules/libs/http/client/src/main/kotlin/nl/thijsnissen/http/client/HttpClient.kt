@@ -26,13 +26,13 @@ class HttpClient(val config: HttpClientConfig, val builder: WebClient.Builder) {
                             ReadTimeoutHandler(
                                 config.timeout.read.toMillis(),
                                 TimeUnit.MILLISECONDS,
-                            )
+                            ),
                         )
                         .addHandlerLast(
                             WriteTimeoutHandler(
                                 config.timeout.write.toMillis(),
                                 TimeUnit.MILLISECONDS,
-                            )
+                            ),
                         )
                 }
 

@@ -6,7 +6,7 @@ import nl.thijsnissen.worklog.domain.Hash
 import nl.thijsnissen.worklog.domain.Worklog
 
 class WorklogRepositoryMock(
-    val ref: AtomicReference<Map<UUID, Worklog>> = AtomicReference(emptyMap())
+    val ref: AtomicReference<Map<UUID, Worklog>> = AtomicReference(emptyMap()),
 ) : WorklogRepository {
     override suspend fun upsertAll(worklogs: List<Worklog>): Long =
         ref.updateAndGet { it + worklogs.associateBy { it.id } }.size.toLong()

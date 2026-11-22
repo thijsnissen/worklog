@@ -23,22 +23,29 @@ object OnStartupMessageLive : BeanRegistrarDsl({ registerBean<OnStartupMessage>(
 
 // Service
 object WorklogServiceImplLive :
-    BeanRegistrarDsl({
-        registerBean<WorklogServiceImpl>()
-        registerBean<WorklogServiceImplConfig> {
-            Binder.get(env)
-                .bind("service.worklog-service-impl.config", WorklogServiceImplConfig::class.java)
-                .get()
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<WorklogServiceImpl>()
+            registerBean<WorklogServiceImplConfig> {
+                Binder.get(env)
+                    .bind(
+                        "service.worklog-service-impl.config",
+                        WorklogServiceImplConfig::class.java,
+                    )
+                    .get()
+            }
+        },
+    )
 
 // Adapters
 object ApiHttpWorklogLive :
-    BeanRegistrarDsl({
-        registerBean<Endpoints>()
-        registerBean<Handler>()
-        registerBean { bean<Endpoints>().endpoints() }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<Endpoints>()
+            registerBean<Handler>()
+            registerBean { bean<Endpoints>().endpoints() }
+        },
+    )
 
 object OpenApiSpecLive :
     OpenApiSpecBean(
@@ -49,51 +56,59 @@ object OpenApiSpecLive :
     )
 
 object JiraClientHttpLive :
-    BeanRegistrarDsl({
-        registerBean<JiraClientHttp>()
-        registerBean<JiraClientHttpConfig> {
-            Binder.get(env)
-                .bind("adapters.jira-client-http.config", JiraClientHttpConfig::class.java)
-                .get()
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<JiraClientHttp>()
+            registerBean<JiraClientHttpConfig> {
+                Binder.get(env)
+                    .bind("adapters.jira-client-http.config", JiraClientHttpConfig::class.java)
+                    .get()
+            }
+        },
+    )
 
 object TempoClientHttpLive :
-    BeanRegistrarDsl({
-        registerBean<TempoClientHttp>()
-        registerBean<TempoClientHttpConfig> {
-            Binder.get(env)
-                .bind("adapters.tempo-client-http.config", TempoClientHttpConfig::class.java)
-                .get()
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<TempoClientHttp>()
+            registerBean<TempoClientHttpConfig> {
+                Binder.get(env)
+                    .bind("adapters.tempo-client-http.config", TempoClientHttpConfig::class.java)
+                    .get()
+            }
+        },
+    )
 
 object TogglTrackClientHttpConfigLive :
-    BeanRegistrarDsl({
-        registerBean<TogglTrackClientHttpConfig> {
-            Binder.get(env)
-                .bind(
-                    "adapters.toggl-track-client-http.config",
-                    TogglTrackClientHttpConfig::class.java,
-                )
-                .get()
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<TogglTrackClientHttpConfig> {
+                Binder.get(env)
+                    .bind(
+                        "adapters.toggl-track-client-http.config",
+                        TogglTrackClientHttpConfig::class.java,
+                    )
+                    .get()
+            }
+        },
+    )
 
 object TogglTrackClientHttpLive : BeanRegistrarDsl({ registerBean<TogglTrackClientHttp>() })
 
 object WorklogRepositoryH2Live :
-    BeanRegistrarDsl({
-        registerBean<WorklogRepositoryH2>()
-        registerBean<WorklogRepositoryH2Config> {
-            Binder.get(env)
-                .bind(
-                    "adapters.worklog-repository-h2.config",
-                    WorklogRepositoryH2Config::class.java,
-                )
-                .get()
-        }
-    })
+    BeanRegistrarDsl(
+        {
+            registerBean<WorklogRepositoryH2>()
+            registerBean<WorklogRepositoryH2Config> {
+                Binder.get(env)
+                    .bind(
+                        "adapters.worklog-repository-h2.config",
+                        WorklogRepositoryH2Config::class.java,
+                    )
+                    .get()
+            }
+        },
+    )
 
 // Libs
 object HttpClientLive : HttpClientDefaultWebClientBean("libs.http.client.config")
