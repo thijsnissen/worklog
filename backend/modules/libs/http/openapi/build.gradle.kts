@@ -5,5 +5,5 @@ plugins {
 
 dependencies {
     implementation(libs.swagger.models)
-    implementation(libs.swagger.core.jakarta)
+    implementation(libs.swagger.core)
 }
