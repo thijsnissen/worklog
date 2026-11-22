@@ -20,7 +20,6 @@ springdoc-openapi-plugin = "2.1.0"
 springdoc-openapi-webflux = "3.2.1"
 swagger = "3.0.0"
 
-
 [libraries]
 dotenv-kotlin = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv-kotlin" }
 h2-database = { module = "com.h2database:h2", version.ref = "h2-database" }
@@ -46,7 +45,7 @@ spring-boot-starter-webclient = { module = "org.springframework.boot:spring-boot
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring-boot" }
 springdoc-openapi-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc-openapi-webflux" }
 springdoc-openapi-webflux-api = { module = "org.springdoc:springdoc-openapi-starter-webflux-api", version.ref = "springdoc-openapi-webflux" }
-swagger-core-jakarta = { module = "io.swagger.core.v3:swagger-core-jakarta", version.ref = "swagger" }
+swagger-core = { module = "io.swagger.core.v3:swagger-core", version.ref = "swagger" }
 swagger-models = { module = "io.swagger.core.v3:swagger-models", version.ref = "swagger" }
 
 # Plugins
